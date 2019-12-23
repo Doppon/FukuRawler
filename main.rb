@@ -11,8 +11,6 @@ open(url) {|file|
   end
 }
 
-moji = a.join
-
 File.open("scan.html", "w") do |f|
-  f.puts(moji)
+  f.puts(a.join)
 end
