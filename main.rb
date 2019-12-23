@@ -3,8 +3,16 @@ require 'open-uri'
 print("URL: ")
 url = gets.chomp
 
-io = OpenURI.open_uri(url)
+a = []
 
-File.open("scan.html", "w") do |f| 
-  f.puts(io)
+open(url) {|file|
+  file.each_line do |line|
+    a << line
+  end
+}
+
+moji = a.join
+
+File.open("scan.html", "w") do |f|
+  f.puts(moji)
 end
