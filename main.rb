@@ -2,15 +2,15 @@ require 'open-uri'
 
 print("URL: "); url = gets.chomp
 
-a = []
+file_list = []
 url_length = url.length
 
 open(url) { |file|
-  file.each_line { |line| a << line }
+  file.each_line { |line| file_list << line }
 }
 
 File.open("scan.html", "w") do |f|
-  f.puts(a.join)
+  f.puts(file_list.join)
 end
 
 f = File.open("scan.html","r")
