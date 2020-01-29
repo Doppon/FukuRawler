@@ -14,9 +14,9 @@ File.open(html_file_name, "w") do |f|
   f.puts(file_list.join)
 end
 
-f = File.open(html_file_name,"r")
-buffer = f.read();
+f = File.open(html_file_name, "r")
+buffer = f.read
 buffer.gsub!(/href=\"/, 'href="'+url[0..url_length-5])
-f = File.open(html_file_name,"w")
+f = File.open(html_file_name, "w")
 f.write(buffer)
-f.close()
+f.close
