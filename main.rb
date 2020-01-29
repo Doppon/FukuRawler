@@ -15,7 +15,6 @@ end
 
 f = File.open("scan.html","r")
 buffer = f.read();
-
 buffer.gsub!(/href=\"/, 'href="'+url[0..url_length-5])
 f = File.open("scan.html","w")
 f.write(buffer)
