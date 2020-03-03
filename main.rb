@@ -1,22 +1,31 @@
 require 'open-uri'
+require 'pry'
 
 # 入力受付
 print("URL: "); url = gets.chomp
-
-
-file_list = []
 url_length = url.length
-html_file_name = "scan.html"
 
+# File.dirname(url)
+# => "https://www.apple.com"
+#
+# File.basename(url)
+# => "jp"
+#
+# File.path(url)
+# => "https://www.apple.com/jp/"
+#
 
 # HTTPリクエストによって取得したbodyをローカルファイルに書き込み
-open(url) { |file|
-  file.each_line { |line| file_list << line }
-}
-File.open(html_file_name, "w") do |f|
-  f.puts(file_list.join)
-end
+fileName = File.basename(url)
 
+html_file_name = "index.html"
+open(html_file_name, "wb") do |html|
+  open(url) do |io|
+    print(io.content_type)
+    # => text/html
+    html.write(io.read)
+  end
+end
 
 # CSSのパスを置換
 open(html_file_name, "r") do |f|
