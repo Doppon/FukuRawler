@@ -1,6 +1,16 @@
 require 'open-uri'
 require 'pry'
 
+def search(base, html_file_name, url)
+  open("./#{base}/#{html_file_name}", "wb") do |html|
+    open(url) do |io|
+      # print(io.content_type)
+      # => text/html
+      html.write(io.read)
+    end
+  end
+end
+
 # 入力受付
 print("URL: "); url = gets.chomp
 url_length = url.length
