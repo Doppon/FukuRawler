@@ -6,6 +6,7 @@ require 'pry'
 def search(base, html_file_name, url)
   open("./#{base}/#{html_file_name}", "wb") do |html|
     open(url) do |io|
+      # TODO: content_typeが違ったときのハンドリング
       if io.content_type == "text/html"
         html.write(io.read)
       end
