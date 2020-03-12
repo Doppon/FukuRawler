@@ -120,7 +120,7 @@ end
 open("./#{base}/#{html_file_name}", "r") do |f|
   buffer = f.read
   buffer.gsub!(/href=\"/, 'href="'+url[0..url_length-5])
-  open(html_file_name, "w") do |html|
+  open("./#{base}/#{html_file_name}", "w") do |html|
     html.write(buffer)
   end
 end
