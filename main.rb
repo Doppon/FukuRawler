@@ -11,6 +11,7 @@ def search(base, html_file_name, url)
       end
     end
   end
+end
 
 # 
 def get_apple_domain(url)
