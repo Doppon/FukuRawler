@@ -48,4 +48,4 @@ open(html_file_name, "r") do |f|
   end
 end
 
-exec "open #{html_file_name}"
+exec "open ./#{base}/#{html_file_name}"
