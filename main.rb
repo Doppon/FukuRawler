@@ -2,6 +2,7 @@ require 'open-uri'
 require "nokogiri"
 require 'pry'
 
+# 
 def search(base, html_file_name, url)
   open("./#{base}/#{html_file_name}", "wb") do |html|
     open(url) do |io|
@@ -10,6 +11,31 @@ def search(base, html_file_name, url)
       html.write(io.read)
     end
   end
+end
+
+# 
+def get_apple_domain(url)
+  # "https://www.apple.com/jp/"
+  # ↓
+  # "https://www.apple.com/"
+  return url[0..-4]
+end
+
+# 
+def get_site_links(url)
+  hrefs = []
+  links = []
+  doc = Nokogiri::HTML(open(url))
+  doc.css("a").each do |el|
+    hrefs << el[:href]
+  end
+  doc.css("link").each do |el|
+    links << el[:href]
+  end
+  return hrefs, links
+end
+
+def mkdir()
 end
 
 # 入力受付
@@ -26,21 +52,42 @@ html_file_name = "index.html"
 # File.path(url)
 # => "https://www.apple.com/jp/"
 #
-
 # HTTPリクエストによって取得したbodyをローカルファイルに書き込み
-fileName = File.basename(url)
+base = File.basename(url)
+begin
+  Dir.mkdir(base)
+rescue => e
+  puts(e)
+end
 
-html_file_name = "index.html"
-open(html_file_name, "wb") do |html|
-  open(url) do |io|
-    print(io.content_type)
-    # => text/html
-    html.write(io.read)
+search(base, html_file_name, url)
+
+
+hrefs = get_site_links(url)
+# 取得で来たリンクのフォルダ内構成づくり
+hrefs.each do |l|
+  begin
+    # jp配下のディレクトリ作成
+    if l[0..3] == "/jp/"
+      mkdir_name = l[1..-1]
+      Dir.mkdir(mkdir_name)
+      # index作成
+      # search(mkdir_name, html_file_name, url)
+      open("./#{mkdir_name}/#{html_file_name}", "wb") do |html|
+        open(get_apple_domain(url)+mkdir_name) do |io|
+          # print(io.content_type)
+          # => text/html
+          html.write(io.read)
+        end
+      end
+    end
+  rescue => e
+    puts(e)
   end
 end
 
-# CSSのパスを置換
-open(html_file_name, "r") do |f|
+# 0階層目のhrefのパスを置換
+open("./#{base}/#{html_file_name}", "r") do |f|
   buffer = f.read
   buffer.gsub!(/href=\"/, 'href="'+url[0..url_length-5])
   open(html_file_name, "w") do |html|
