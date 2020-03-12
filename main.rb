@@ -15,6 +15,7 @@ end
 # 入力受付
 print("URL: "); url = gets.chomp
 url_length = url.length
+html_file_name = "index.html"
 
 # File.dirname(url)
 # => "https://www.apple.com"
