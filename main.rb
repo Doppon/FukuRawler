@@ -1,4 +1,5 @@
 require 'open-uri'
+require "nokogiri"
 require 'pry'
 
 def search(base, html_file_name, url)
