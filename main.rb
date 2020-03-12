@@ -63,9 +63,11 @@ end
 
 search(base, html_file_name, url)
 
-hrefs = get_site_links(url)
+urls =  get_site_links(url)
+hrefs = urls[0]
+links = urls[1]
 # 取得で来たリンクのフォルダ内構成づくり
-hrefs[0].each do |l|
+hrefs.each do |l|
   begin
     # jp配下のディレクトリ作成
     if l[0..3] == "/jp/"
