@@ -89,6 +89,7 @@ hrefs.each do |l|
             dir_path += "/" if j <= (max_count-1)
           end
 
+          # 例外処理をさせないとループから抜けてしまう
           begin
             Dir.mkdir(dir_path)
           rescue => e
