@@ -3,3 +3,7 @@
 
 #
 .DS_Store
+
+# For Crawler
+/sample
+/jp
