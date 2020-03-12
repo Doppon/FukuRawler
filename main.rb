@@ -72,15 +72,18 @@ hrefs.each do |l|
   begin
     # jp配下のディレクトリ作成
     if l[0..3] == "/jp/"
+      # 最初の / を切り取り
       mkdir_name = l[1..-1]
-      Dir.mkdir(mkdir_name)
-      # index作成
+      # 最後の / の切り取り
+      mkdir_name = mkdir_name[0..-2] if mkdir_name[-1] == "/"
 
-      if mkdir_name[-1] == "/"
-        open_link = "./#{mkdir_name}#{html_file_name}"
-      else
-        open_link = "./#{mkdir_name}/#{html_file_name}"
+      # jp/shop/goto/bag
+      # ["jp", "shop", "goto", "bag"]
+      dir_names = mkdir_name.split("/")
+      dir_names.each do |d|
+        Dir.mkdir(d)
       end
+      # index作成
 
       open("./#{mkdir_name}/#{html_file_name}", "wb") do |html|
         open(get_apple_domain(url)+mkdir_name) do |io|
