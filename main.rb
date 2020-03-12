@@ -77,9 +77,10 @@ hrefs.each do |l|
       # search(mkdir_name, html_file_name, url)
       open("./#{mkdir_name}/#{html_file_name}", "wb") do |html|
         open(get_apple_domain(url)+mkdir_name) do |io|
-          # print(io.content_type)
-          # => text/html
-          html.write(io.read)
+          # TODO: content_typeが違ったときのハンドリング
+          if io.content_type == "text/html"
+            html.write(io.read)
+          end
         end
       end
     end
