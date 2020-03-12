@@ -80,9 +80,24 @@ hrefs.each do |l|
       # jp/shop/goto/bag
       # ["jp", "shop", "goto", "bag"]
       dir_names = mkdir_name.split("/")
-      dir_names.each do |d|
-        Dir.mkdir(d)
+      if dir_names.length > 2
+        dir_names.length.times do |i|
+          dir_path = ""
+          max_count = i
+          i.times do |j|
+            dir_path += dir_names[j]
+            dir_path += "/" if j <= (max_count-1)
+          end
+
+          begin
+            Dir.mkdir(dir_path)
+          rescue => e
+            puts(e)
+          end
+        end
       end
+
+      Dir.mkdir(mkdir_name)
       # index作成
 
       open("./#{mkdir_name}/#{html_file_name}", "wb") do |html|
