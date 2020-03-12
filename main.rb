@@ -6,9 +6,10 @@ require 'pry'
 def search(base, html_file_name, url)
   open("./#{base}/#{html_file_name}", "wb") do |html|
     open(url) do |io|
-      # TODO: content_typeが違ったときのハンドリング
       if io.content_type == "text/html"
         html.write(io.read)
+      else
+        puts("ERROR THE CONTENT TYPE IS #{io.content_type}.")
       end
     end
   end
@@ -83,9 +84,10 @@ hrefs.each do |l|
 
       open("./#{mkdir_name}/#{html_file_name}", "wb") do |html|
         open(get_apple_domain(url)+mkdir_name) do |io|
-          # TODO: content_typeが違ったときのハンドリング
           if io.content_type == "text/html"
             html.write(io.read)
+          else
+            puts("ERROR THE CONTENT TYPE IS #{io.content_type}.")
           end
         end
       end
