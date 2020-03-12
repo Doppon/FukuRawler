@@ -74,7 +74,13 @@ hrefs.each do |l|
       mkdir_name = l[1..-1]
       Dir.mkdir(mkdir_name)
       # index作成
-      # search(mkdir_name, html_file_name, url)
+
+      if mkdir_name[-1] == "/"
+        open_link = "./#{mkdir_name}#{html_file_name}"
+      else
+        open_link = "./#{mkdir_name}/#{html_file_name}"
+      end
+
       open("./#{mkdir_name}/#{html_file_name}", "wb") do |html|
         open(get_apple_domain(url)+mkdir_name) do |io|
           # TODO: content_typeが違ったときのハンドリング
