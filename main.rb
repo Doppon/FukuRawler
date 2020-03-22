@@ -124,4 +124,5 @@ open("./#{base}/#{html_file_name}", "r") do |f|
   end
 end
 
-exec "open ./#{base}/#{html_file_name}"
+# 最初のページにあたる ./jp/index.html のオープン
+# exec "open ./#{base}/#{html_file_name}"
