@@ -3,19 +3,6 @@ require "nokogiri"
 require 'pry'
 
 # 
-def search(base, html_file_name, url)
-  open("./#{base}/#{html_file_name}", "wb") do |html|
-    open(url) do |io|
-      if io.content_type == "text/html"
-        html.write(io.read)
-      else
-        puts("ERROR: THE CONTENT TYPE IS #{io.content_type}.")
-      end
-    end
-  end
-end
-
-# 
 def get_apple_domain(url)
   # "https://www.apple.com/jp/"
   # ↓
@@ -92,7 +79,15 @@ rescue => e
   puts(e)
 end
 
-search(base, html_file_name, url)
+open("./#{base}/#{html_file_name}", "wb") do |html|
+  open(url) do |io|
+    if io.content_type == "text/html"
+      html.write(io.read)
+    else
+      puts("ERROR: THE CONTENT TYPE IS #{io.content_type}.")
+    end
+  end
+end
 
 hrefs = get_site_links(url)
 # 取得で来たリンクのフォルダ内構成づくり
