@@ -9,7 +9,7 @@ def search(base, html_file_name, url)
       if io.content_type == "text/html"
         html.write(io.read)
       else
-        puts("ERROR THE CONTENT TYPE IS #{io.content_type}.")
+        puts("ERROR: THE CONTENT TYPE IS #{io.content_type}.")
       end
     end
   end
@@ -106,7 +106,7 @@ hrefs.each do |l|
           if io.content_type == "text/html"
             html.write(io.read)
           else
-            puts("ERROR THE CONTENT TYPE IS #{io.content_type}.")
+            puts("ERROR: THE CONTENT TYPE IS #{io.content_type}.")
           end
         end
       end
