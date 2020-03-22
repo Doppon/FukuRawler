@@ -136,15 +136,15 @@ hrefs.each do |l|
   begin
     # jp配下のディレクトリ作成
     if l[0..3] == "/jp/"
-      # ディレクトリの作成
+      # ディレクトリの作成( 階層的 )
       mkdir_name = ""
       # 最初の / を切り取り | 基本的に "/" から始まってる
       mkdir_name = l[1..-1] if l[0] == "/"
-    
       # 最後の / の切り取り( もし末尾に "/" が付いていた場合 )
       mkdir_name = mkdir_name[0..-2] if mkdir_name[-1] == "/"
       loop_mkdir(mkdir_name, l, false)
 
+      # ディレクトリの作成( 階層なし )
       Dir.mkdir(mkdir_name) unless mkdir_name.empty?
       # puts("INFO: CREATED - #{mkdir_name}")
 
