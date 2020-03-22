@@ -63,9 +63,7 @@ end
 
 search(base, html_file_name, url)
 
-urls =  get_site_links(url)
-hrefs = urls[0]
-links = urls[1]
+hrefs, links = get_site_links(url)
 # 取得で来たリンクのフォルダ内構成づくり
 hrefs.each do |l|
   begin
