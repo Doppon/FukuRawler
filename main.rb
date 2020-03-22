@@ -86,6 +86,7 @@ hrefs.each do |l|
           # 例外処理をさせないとループから抜けてしまう
           begin
             Dir.mkdir(dir_path)
+            puts("INFO: CREATED - #{dir_path}")
           rescue => e
             if e.message.length >= 11 && e.message[0..10] == "File exists"
               next
@@ -96,6 +97,8 @@ hrefs.each do |l|
       end
 
       Dir.mkdir(mkdir_name)
+      puts("INFO: CREATED - #{mkdir_name}")
+
       # index作成
 
       open("./#{mkdir_name}/#{html_file_name}", "wb") do |html|
