@@ -121,6 +121,14 @@ hrefs.each do |l|
     if e.message.length >= 11 && e.message[0..10] == "File exists"
       next
     end
+
+    if e.message.length >= 21 && e.message[0..20] == "redirection forbidden"
+      msg = e.message.split(" -> ")
+      redirect_link = msg.last
+      # TODO: サーチさせにいく
+      next
+    end
+
     puts(e)
   end
 end
