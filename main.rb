@@ -114,45 +114,47 @@ hrefs.each do |l|
     mkdir_name = mkdir_name[0..-2] if mkdir_name[-1] == "/"
     loop_mkdir(mkdir_name, l, true)
 
-
-    open(".#{l}", "wb") do |css|
-      # Ex. "/ac/globalfooter/5/ja_JP/styles/ac-globalfooter.built.css"
-      open(get_apple_domain(url) + l) do |io|
-        if io.content_type == "text/css"
+    open(get_apple_domain(url) + "/" + mkdir_name) do |io|
+      if io.content_type == "text/html"
+        open("./#{mkdir_name}/#{html_file_name}", "wb") do |html|
+          html.write(io.read)
+        end
+      elsif io.content_type == "text/css"
+        open(".#{l}", "wb") do |css|
           css.write(io.read)
           puts("INFO: CREATED - CSS - #{l}")
-        else
-          puts("ERROR: THE CONTENT TYPE IS #{io.content_type}.")
         end
+      else
+        puts("ERROR: THE CONTENT TYPE IS #{io.content_type}.")
       end
     end
   end
 
   begin
-    # jp配下のディレクトリ作成
-    if l[0..3] == "/jp/"
-      # ディレクトリの作成( 階層的 )
-      mkdir_name = ""
-      # 最初の / を切り取り | 基本的に "/" から始まってる
-      mkdir_name = l[1..-1] if l[0] == "/"
-      # 最後の / の切り取り( もし末尾に "/" が付いていた場合 )
-      mkdir_name = mkdir_name[0..-2] if mkdir_name[-1] == "/"
-      loop_mkdir(mkdir_name, l, false)
+    # ディレクトリの作成( 階層的 )
+    mkdir_name = ""
+    # 最初の / を切り取り | 基本的に "/" から始まってる
+    mkdir_name = l[1..-1] if l[0] == "/"
+    # 最後の / の切り取り( もし末尾に "/" が付いていた場合 )
+    mkdir_name = mkdir_name[0..-2] if mkdir_name[-1] == "/"
+    loop_mkdir(mkdir_name, l, false)
 
-      # ディレクトリの作成( 階層なし )
-      Dir.mkdir(mkdir_name) unless mkdir_name.empty?
-      # puts("INFO: CREATED - #{mkdir_name}")
+    # ディレクトリの作成( 階層なし )
+    Dir.mkdir(mkdir_name) unless mkdir_name.empty?
+    # puts("INFO: CREATED - #{mkdir_name}")
 
-      # index作成
-
-      open("./#{mkdir_name}/#{html_file_name}", "wb") do |html|
-        open(get_apple_domain(url) + "/" + mkdir_name) do |io|
-          if io.content_type == "text/html"
-            html.write(io.read)
-          else
-            puts("ERROR: THE CONTENT TYPE IS #{io.content_type}.")
-          end
+    open(get_apple_domain(url) + "/" + mkdir_name) do |io|
+      if io.content_type == "text/html"
+        open("./#{mkdir_name}/#{html_file_name}", "wb") do |html|
+          html.write(io.read)
         end
+      elsif io.content_type == "text/css"
+        open(".#{l}", "wb") do |css|
+          css.write(io.read)
+          puts("INFO: CREATED - CSS - #{l}")
+        end
+      else
+        puts("ERROR: THE CONTENT TYPE IS #{io.content_type}.")
       end
     end
   rescue => e
