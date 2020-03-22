@@ -95,7 +95,9 @@ hrefs.each do |l|
           begin
             Dir.mkdir(dir_path)
           rescue => e
-            puts(e)
+            if e.message.length >= 11 && e.message[0..10] == "File exists"
+              next
+            end
           end
         end
       end
