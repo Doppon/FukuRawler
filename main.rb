@@ -73,7 +73,8 @@ hrefs.each do |l|
     if l[0..3] == "/jp/"
       # 最初の / を切り取り
       mkdir_name = l[1..-1]
-      # 最後の / の切り取り
+
+      # 最後の / の切り取り( もし末尾に "/" が付いていた場合 )
       mkdir_name = mkdir_name[0..-2] if mkdir_name[-1] == "/"
 
       # jp/shop/goto/bag
