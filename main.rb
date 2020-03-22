@@ -60,6 +60,11 @@ search(base, html_file_name, url)
 hrefs, links = get_site_links(url)
 # 取得で来たリンクのフォルダ内構成づくり
 hrefs.each do |l|
+  # TODO: もしかしたら変更するかも
+  if l[0..7] == "https://"
+    next
+  end
+
   # パス "#" の対策
   if l == "#"
     puts("INFO: SKIP PATH #")
