@@ -52,8 +52,10 @@ html_file_name = "index.html"
 #
 # File.path(url)
 # => "https://www.apple.com/jp/"
-#
-# HTTPリクエストによって取得したbodyをローカルファイルに書き込み
+
+# HTTP リクエストによって取得した body をローカルファイルに書き込み
+# File.basename(url)
+# => "jp"
 base = File.basename(url)
 begin
   Dir.mkdir(base)
