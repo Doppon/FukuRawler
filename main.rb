@@ -60,6 +60,12 @@ search(base, html_file_name, url)
 hrefs, links = get_site_links(url)
 # 取得で来たリンクのフォルダ内構成づくり
 hrefs.each do |l|
+  # パス "#" の対策
+  if l == "#"
+    puts("INFO: SKIP PATH #")
+    next
+  end
+
   begin
     # jp配下のディレクトリ作成
     if l[0..3] == "/jp/"
