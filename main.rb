@@ -37,9 +37,6 @@ def get_site_links(url)
   return hrefs, links
 end
 
-def mkdir()
-end
-
 # 入力受付
 print("URL: "); url = gets.chomp
 url_length = url.length
