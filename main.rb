@@ -23,7 +23,7 @@ def get_apple_domain(url)
   File.dirname(url)
 end
 
-# 指定された URL のサイト内にあるリンクを全てここで一時的に [hrefs, links] に渡している
+# 指定された URL のサイト内にあるリンクを全てここで渡している
 def get_site_links(url)
   hrefs = []
   links = []
@@ -34,7 +34,8 @@ def get_site_links(url)
   doc.css("link").each do |el|
     links << el[:href]
   end
-  return hrefs, links
+
+  return hrefs + links
 end
 
 # 入力受付
@@ -57,7 +58,7 @@ end
 
 search(base, html_file_name, url)
 
-hrefs, links = get_site_links(url)
+hrefs = get_site_links(url)
 # 取得で来たリンクのフォルダ内構成づくり
 hrefs.each do |l|
   # TODO: もしかしたら変更するかも
