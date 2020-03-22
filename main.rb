@@ -80,6 +80,7 @@ hrefs.each do |l|
       # jp/shop/goto/bag
       # ["jp", "shop", "goto", "bag"]
       dir_names = mkdir_name.split("/")
+      # 配列の個数が 2 以上のとき、すなわち階層が 2 階層以上だった場合
       if dir_names.length > 2
         dir_names.length.times do |i|
           dir_path = ""
