@@ -73,26 +73,31 @@ hrefs.each do |l|
     if l[0..3] == "/jp/"
       # 最初の / を切り取り
       mkdir_name = l[1..-1]
-      # 最後の / の切り取り
+
+      # 最後の / の切り取り( もし末尾に "/" が付いていた場合 )
       mkdir_name = mkdir_name[0..-2] if mkdir_name[-1] == "/"
 
       # jp/shop/goto/bag
       # ["jp", "shop", "goto", "bag"]
       dir_names = mkdir_name.split("/")
+      # 配列の個数が 2 以上のとき、すなわち階層が 2 階層以上だった場合
       if dir_names.length > 2
         dir_names.length.times do |i|
           dir_path = ""
           max_count = i
+
           i.times do |j|
             dir_path += dir_names[j]
-            dir_path += "/" if j <= (max_count-1)
+            dir_path += "/" if j <= (max_count - 1)
           end
 
           # 例外処理をさせないとループから抜けてしまう
           begin
             Dir.mkdir(dir_path)
           rescue => e
-            puts(e)
+            if e.message.length >= 11 && e.message[0..10] == "File exists"
+              next
+            end
           end
         end
       end
@@ -124,4 +129,5 @@ open("./#{base}/#{html_file_name}", "r") do |f|
   end
 end
 
-exec "open ./#{base}/#{html_file_name}"
+# 最初のページにあたる ./jp/index.html のオープン
+# exec "open ./#{base}/#{html_file_name}"
