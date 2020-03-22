@@ -85,9 +85,10 @@ hrefs.each do |l|
         dir_names.length.times do |i|
           dir_path = ""
           max_count = i
+
           i.times do |j|
             dir_path += dir_names[j]
-            dir_path += "/" if j <= (max_count-1)
+            dir_path += "/" if j <= (max_count - 1)
           end
 
           # 例外処理をさせないとループから抜けてしまう
