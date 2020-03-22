@@ -23,7 +23,7 @@ def get_apple_domain(url)
   return url[0..-4]
 end
 
-# 
+# 指定された URL のサイト内にあるリンクを全てここで一時的に [hrefs, links] に渡している
 def get_site_links(url)
   hrefs = []
   links = []
