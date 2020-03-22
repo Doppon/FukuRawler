@@ -44,14 +44,6 @@ print("URL: "); url = gets.chomp
 url_length = url.length
 html_file_name = "index.html"
 
-# File.dirname(url)
-# => "https://www.apple.com"
-#
-# File.basename(url)
-# => "jp"
-#
-# File.path(url)
-# => "https://www.apple.com/jp/"
 
 # HTTP リクエストによって取得した body をローカルファイルに書き込み
 # File.basename(url)
