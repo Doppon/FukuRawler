@@ -19,8 +19,8 @@ end
 def get_apple_domain(url)
   # "https://www.apple.com/jp/"
   # ↓
-  # "https://www.apple.com/"
-  return url[0..-4]
+  # "https://www.apple.com"
+  File.dirname(url)
 end
 
 # 指定された URL のサイト内にあるリンクを全てここで一時的に [hrefs, links] に渡している
@@ -106,7 +106,7 @@ hrefs.each do |l|
       # index作成
 
       open("./#{mkdir_name}/#{html_file_name}", "wb") do |html|
-        open(get_apple_domain(url)+mkdir_name) do |io|
+        open(get_apple_domain(url) + "/" + mkdir_name) do |io|
           if io.content_type == "text/html"
             html.write(io.read)
           else
