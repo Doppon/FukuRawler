@@ -25,7 +25,17 @@ def get_site_links(url)
   return hrefs + links
 end
 
-def loop_mkdir(mkdir_name, url, last_is_file)
+def loop_mkdir(mkdir_name, l)
+  # 最初の / を切り取り | 基本的に "/" から始まってる
+  mkdir_name = l[1..-1] if l[0] == "/"
+  # 最後の / の切り取り( もし末尾に "/" が付いていた場合 )
+  if mkdir_name[-1] == "/"
+    mkdir_name = mkdir_name[0..-2]
+    last_is_file = false
+  else
+    last_is_file = true
+  end
+
   # jp/shop/goto/bag
   # ["jp", "shop", "goto", "bag"]
   dir_names = mkdir_name.split("/")
@@ -59,6 +69,8 @@ def loop_mkdir(mkdir_name, url, last_is_file)
       end
     end
   end
+
+  mkdir_name
 end
 
 # 入力受付
@@ -103,44 +115,19 @@ hrefs.each do |l|
     next
   end
 
-  # CSS 対策
-  # マッチング時にはマッチング箇所の数値が返り値
-  if (/.css/ =~ l)
-    # TODO: ディレクトリの作成
-    mkdir_name = ""
-    # 最初の / を切り取り | 基本的に "/" から始まってる
-    mkdir_name = l[1..-1] if l[0] == "/"
-    # 最後の / の切り取り( もし末尾に "/" が付いていた場合 )
-    mkdir_name = mkdir_name[0..-2] if mkdir_name[-1] == "/"
-    loop_mkdir(mkdir_name, l, true)
-
-    open(get_apple_domain(url) + "/" + mkdir_name) do |io|
-      if io.content_type == "text/html"
-        open("./#{mkdir_name}/#{html_file_name}", "wb") do |html|
-          html.write(io.read)
-        end
-      elsif io.content_type == "text/css"
-        open(".#{l}", "wb") do |css|
-          css.write(io.read)
-          puts("INFO: CREATED - CSS - #{l}")
-        end
-      else
-        puts("ERROR: THE CONTENT TYPE IS #{io.content_type}.")
-      end
-    end
-  end
-
   begin
     # ディレクトリの作成( 階層的 )
     mkdir_name = ""
-    # 最初の / を切り取り | 基本的に "/" から始まってる
-    mkdir_name = l[1..-1] if l[0] == "/"
-    # 最後の / の切り取り( もし末尾に "/" が付いていた場合 )
-    mkdir_name = mkdir_name[0..-2] if mkdir_name[-1] == "/"
-    loop_mkdir(mkdir_name, l, false)
+    mkdir_name = loop_mkdir(mkdir_name, l)
 
     # ディレクトリの作成( 階層なし )
-    Dir.mkdir(mkdir_name) unless mkdir_name.empty?
+    if mkdir_name.empty?
+      #
+    elsif (/.css/ =~ l)
+      #
+    else
+      Dir.mkdir(mkdir_name)
+    end
     # puts("INFO: CREATED - #{mkdir_name}")
 
     open(get_apple_domain(url) + "/" + mkdir_name) do |io|
