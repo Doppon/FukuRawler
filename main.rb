@@ -39,6 +39,8 @@ end
 
 # 入力受付
 print("URL: "); url = gets.chomp
+
+# 定数宣言
 url_length = url.length
 html_file_name = "index.html"
 
