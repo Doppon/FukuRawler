@@ -90,6 +90,7 @@ hrefs.each do |l|
             if e.message.length >= 11 && e.message[0..10] == "File exists"
               next
             end
+            puts(e)
           end
         end
       end
@@ -108,6 +109,9 @@ hrefs.each do |l|
       end
     end
   rescue => e
+    if e.message.length >= 11 && e.message[0..10] == "File exists"
+      next
+    end
     puts(e)
   end
 end
