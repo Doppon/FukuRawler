@@ -14,6 +14,7 @@ end
 def get_site_links(url)
   hrefs = []
   links = []
+  srcs = []
   doc = Nokogiri::HTML(open(url))
   doc.css("a").each do |el|
     hrefs << el[:href]
@@ -21,8 +22,13 @@ def get_site_links(url)
   doc.css("link").each do |el|
     links << el[:href]
   end
+  doc.css('script').each do |script|
+    srcs << script.attribute("src")&.value
+  end
+  # nil が含まれている場合に要素を削除
+  srcs.compact
 
-  return hrefs + links
+  return hrefs + links + srcs
 end
 
 def loop_mkdir(mkdir_name, l)
