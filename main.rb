@@ -163,7 +163,9 @@ end
 # 0階層目のhrefのパスを置換
 open("./#{base}/#{html_file_name}", "r") do |f|
   buffer = f.read
-  buffer.gsub!(/href=\"/, 'href="' + url[0..url_length-5])
+  buffer.gsub!(/href=\"/, 'href=".')
+  # CSS のパスは root からになっているので root にするように( ./ -> ../ )
+  buffer.gsub!(/href=\"[^\"]+.css\"/) {|s| "#{s[0..5]}.#{s[6..-1]}" }
   open("./#{base}/#{html_file_name}", "w") do |html|
     html.write(buffer)
   end
