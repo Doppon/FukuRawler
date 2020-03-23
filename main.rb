@@ -184,7 +184,7 @@ open("./#{base}/#{html_file_name}", "r") do |f|
   buffer = f.read
   buffer.gsub!(/href=\"/, 'href=".')
   # CSS のパスは root からになっているので root にするように( ./ -> ../ )
-  buffer.gsub!(/href=\"[^\"]+.css\"/) {|s| "#{s[0..5]}.#{s[6..-1]}" }
+  buffer.gsub!(/href=\"[^\"]+.css\"/) { |s| "#{s[0..5]}.#{s[6..-1]}" }
   # jS  のパスは root からになっているので root にするように(  / -> ../ )
   buffer.gsub!(/src=\"[^\"]+.js\"/) {|s| "#{s[0..4]}..#{s[5..-1]}" }
 
