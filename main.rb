@@ -143,6 +143,12 @@ hrefs.each do |l|
           css.write(io.read)
           puts("INFO: CREATED - CSS - #{l}")
         end
+      # js の作成
+      elsif io.content_type == "application/x-javascript"
+        open(".#{l}", "wb") do |js|
+          js.write(io.read)
+          puts("INFO: CREATED - JavaScript - #{l}")
+        end
       else
         puts("ERROR: THE CONTENT TYPE IS #{io.content_type}.")
       end
