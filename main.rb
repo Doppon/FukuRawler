@@ -127,7 +127,9 @@ hrefs.each do |l|
     if mkdir_name.empty?
       #
     elsif (/.css/ =~ l)
-      #
+      # ディレクトリが生成されないように
+    elsif (/.js/ =~ l)
+      # ディレクトリが生成されないように
     else
       Dir.mkdir(mkdir_name)
     end
