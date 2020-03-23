@@ -136,10 +136,12 @@ hrefs.each do |l|
     # puts("INFO: CREATED - #{mkdir_name}")
 
     open(get_apple_domain(url) + "/" + mkdir_name) do |io|
+      # index.html の作成
       if io.content_type == "text/html"
         open("./#{mkdir_name}/#{html_file_name}", "wb") do |html|
           html.write(io.read)
         end
+      # css の作成
       elsif io.content_type == "text/css"
         open(".#{l}", "wb") do |css|
           css.write(io.read)
