@@ -104,6 +104,9 @@ end
 hrefs = get_site_links(url)
 # 取得で来たリンクのフォルダ内構成づくり
 hrefs.each do |l|
+  # 仮に何も要素が入ってなかった場合
+  next unless l
+
   # TODO: もしかしたら変更するかも
   if l[0..7] == "https://"
     next
