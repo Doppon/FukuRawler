@@ -7,5 +7,6 @@
 # For Crawler
 /sample
 /jp
-*.css
-*.js
+/v
+/ac
+/metrics
