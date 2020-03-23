@@ -232,7 +232,7 @@ open("./v/home/d/built/styles/main.built.css", "r") do |f|
     open(".#{p}", "wb") do |img|
       # 実際のコンテンツの中身取得
       open("https://www.apple.com" + p) do |io|
-        img.write(io)
+        img.puts(io.read)
         puts("INFO: CREATED - IMG - #{p}")
       end
     end
