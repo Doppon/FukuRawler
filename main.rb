@@ -14,6 +14,7 @@ end
 def get_site_links(url)
   hrefs = []
   links = []
+  srcs = []
   doc = Nokogiri::HTML(open(url))
   doc.css("a").each do |el|
     hrefs << el[:href]
@@ -21,8 +22,13 @@ def get_site_links(url)
   doc.css("link").each do |el|
     links << el[:href]
   end
+  doc.css('script').each do |script|
+    srcs << script.attribute("src")&.value
+  end
+  # nil が含まれている場合に要素を削除
+  srcs.compact
 
-  return hrefs + links
+  return hrefs + links + srcs
 end
 
 def loop_mkdir(mkdir_name, l)
@@ -127,21 +133,31 @@ hrefs.each do |l|
     if mkdir_name.empty?
       #
     elsif (/.css/ =~ l)
-      #
+      # ディレクトリが生成されないように
+    elsif (/.js/ =~ l)
+      # ディレクトリが生成されないように
     else
       Dir.mkdir(mkdir_name)
     end
     # puts("INFO: CREATED - #{mkdir_name}")
 
     open(get_apple_domain(url) + "/" + mkdir_name) do |io|
+      # index.html の作成
       if io.content_type == "text/html"
         open("./#{mkdir_name}/#{html_file_name}", "wb") do |html|
           html.write(io.read)
         end
+      # css の作成
       elsif io.content_type == "text/css"
         open(".#{l}", "wb") do |css|
           css.write(io.read)
           puts("INFO: CREATED - CSS - #{l}")
+        end
+      # js の作成
+      elsif io.content_type == "application/x-javascript"
+        open(".#{l}", "wb") do |js|
+          js.write(io.read)
+          puts("INFO: CREATED - JavaScript - #{l}")
         end
       else
         puts("ERROR: THE CONTENT TYPE IS #{io.content_type}.")
