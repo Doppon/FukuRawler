@@ -193,5 +193,60 @@ open("./#{base}/#{html_file_name}", "r") do |f|
   end
 end
 
+# TODO: クローリングの中で処理するように変更
+open("./v/home/d/built/styles/main.built.css", "r") do |f|
+  buffer = f.read
+  ary = buffer.scan(/background-image:url\(\"[^\"]+\"/)
+
+  ary.each do |a|
+    # パスの指定
+    # background-image:url("---" の中身が取得できる
+    p = a[22..-2]
+
+
+    # ディレクトリ作成
+    mkdir_name = ""
+    mkdir_name = loop_mkdir(mkdir_name, p)
+
+    # ディレクトリの作成( 階層なし )
+    if mkdir_name.empty?
+      #
+    elsif (/.css/ =~ p)
+      # ディレクトリが生成されないように
+    elsif (/.js/ =~ p)
+      # ディレクトリが生成されないように
+    elsif (/.png/ =~ p)
+      # ディレクトリが生成されないように
+    elsif (/.jpg/ =~ p)
+      # ディレクトリが生成されないように
+    elsif (/.jpeg/ =~ p)
+      # ディレクトリが生成されないように
+    else
+      Dir.mkdir(mkdir_name)
+    end
+    # puts("INFO: CREATED - #{mkdir_name}")
+
+
+
+    # リンク先の取得( 画像 )
+    open(".#{p}", "wb") do |img|
+      # 実際のコンテンツの中身取得
+      open("https://www.apple.com" + p) do |io|
+        img.write(io)
+        puts("INFO: CREATED - IMG - #{p}")
+      end
+    end
+  end
+
+  # パスを相対パスに変換
+  # /v/home/d/images/~~
+  # 
+  # ../../images/~~~
+  buffer.gsub!(/\/v\/home\/d/, "../..")
+  open("./v/home/d/built/styles/main.built.css", "w") do |css|
+    css.write(buffer)
+  end
+end
+
 # 最初のページにあたる ./jp/index.html のオープン
 # exec "open ./#{base}/#{html_file_name}"
