@@ -249,10 +249,12 @@ open(open_file_path, "r") do |f|
   #
   # ../../../../../../v/home/d/built/images/mac-takeover/graph
   # 
-  # パスを相対パスに変換
-  # /v/home/d/images/~~
-  # 
-  # ../../images/~~~
+
+  back_path = ""
+  (open_file_path.split("/").count - 1).times { back_path += "../" }
+  back_path = back_path[0..-2] # ..//v/home などを避けるため
+
+  # TODO: /background-image:url\(\"[^\"]+\"/ の正規表現で柔軟な対応にする
   buffer.gsub!(/\/v\/home\/d/, "../..")
   open(open_file_path, "w") do |css|
     css.write(buffer)
