@@ -256,6 +256,7 @@ open(open_file_path, "r") do |f|
 
   # TODO: /background-image:url\(\"[^\"]+\"/ の正規表現で柔軟な対応にする
   buffer.gsub!(/\/v\/home\/d/, "../..")
+
   open(open_file_path, "w") do |css|
     css.write(buffer)
   end
