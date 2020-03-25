@@ -239,6 +239,16 @@ open("./v/home/d/built/styles/main.built.css", "r") do |f|
   end
 
   # TODO: 書き込みパスからの相対パスあぶり出し
+  # openしてるパスから変換
+  # openしてるパス: ./v/home/d/built/styles/main.built.css
+  #
+  # 手順1. 入った階層分戻る
+  # 
+  # "./v/home/d/built/styles/main.built.css".split("/").count
+  # => 7
+  #
+  # ../../../../../~~ 
+  #
   # パスを相対パスに変換
   # /v/home/d/images/~~
   # 
