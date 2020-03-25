@@ -238,6 +238,7 @@ open("./v/home/d/built/styles/main.built.css", "r") do |f|
     end
   end
 
+  # TODO: 書き込みパスからの相対パスあぶり出し
   # パスを相対パスに変換
   # /v/home/d/images/~~
   # 
