@@ -243,13 +243,12 @@ open(open_file_path, "r") do |f|
   # openしてるパスから変換
   # openしてるパス: ./v/home/d/built/styles/main.built.css
   #
-  # 手順1. 入った階層分戻る
   # 
   # "./v/home/d/built/styles/main.built.css".split("/").count
   # => 7
   #
-  # ../../../../../~~ 
-  #
+  # ../../../../../../v/home/d/built/images/mac-takeover/graph
+  # 
   # パスを相対パスに変換
   # /v/home/d/images/~~
   # 
