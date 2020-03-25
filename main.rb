@@ -194,7 +194,8 @@ open("./#{base}/#{html_file_name}", "r") do |f|
 end
 
 # TODO: クローリングの中で処理するように変更
-open("./v/home/d/built/styles/main.built.css", "r") do |f|
+open_file_path = "./v/home/d/built/styles/main.built.css"
+open(open_file_path, "r") do |f|
   buffer = f.read
   ary = buffer.scan(/background-image:url\(\"[^\"]+\"/)
 
@@ -254,7 +255,7 @@ open("./v/home/d/built/styles/main.built.css", "r") do |f|
   # 
   # ../../images/~~~
   buffer.gsub!(/\/v\/home\/d/, "../..")
-  open("./v/home/d/built/styles/main.built.css", "w") do |css|
+  open(open_file_path, "w") do |css|
     css.write(buffer)
   end
 end
