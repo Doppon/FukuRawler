@@ -9,7 +9,7 @@ def conread(filenames)
       open(filename) { |f| f.read }
     end
   end
-end
 
-# ハッシュを反復処理
-# wip
+  # ハッシュを反復処理
+  # WIP
+end
