@@ -11,5 +11,13 @@ def conread(filenames)
   end
 
   # ハッシュを反復処理
-  # WIP
+  h.each_pair do |filename, thread|
+    begin
+      # thread.value の意味に注目
+      h[filename] = thread.value
+    rescue
+      # $! の意味に注目
+      h[filename] = $!
+    end
+  end
 end
