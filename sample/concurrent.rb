@@ -6,6 +6,7 @@ def conread(filenames)
   filenames.each do |filename|
     h[filename] = Thread.new do
       # ファイル読み込みの処理
+      open(filename) { |f| f.read }
     end
   end
 end
