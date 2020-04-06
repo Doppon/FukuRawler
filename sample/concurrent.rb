@@ -10,3 +10,6 @@ def conread(filenames)
     end
   end
 end
+
+# ハッシュを反復処理
+# wip
