@@ -2,7 +2,7 @@
 def conread(filenames)
   h = {} # 戻り値の空ハッシュを作成
 
-  # スレッド
+  # スレッドの作成
   filenames.each do |filename|
     h[filename] = Thread.new do
       # ファイル読み込みの処理
