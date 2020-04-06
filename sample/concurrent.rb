@@ -1,5 +1,5 @@
 # ファイルを並列呼び出しするための関数
-def hoge(filenames)
+def conread(filenames)
   h = {} # 戻り値の空ハッシュを作成
 
   # スレッド
