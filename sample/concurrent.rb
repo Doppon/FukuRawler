@@ -16,7 +16,7 @@ def conread(filenames)
       # thread.value の意味に注目
       h[filename] = thread.value
     rescue
-      # $! の意味に注目
+      # $! -> Exception | nil
       h[filename] = $!
     end
   end
