@@ -13,7 +13,7 @@ def conread(filenames)
   # ハッシュを反復処理
   h.each_pair do |filename, thread|
     begin
-      # thread.value の意味に注目
+      # Thread#value -> スレッドが終了するまで待ち、戻り値を得る
       h[filename] = thread.value
     rescue
       # $! -> Exception | nil
