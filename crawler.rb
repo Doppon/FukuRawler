@@ -3,7 +3,9 @@ require "nokogiri"
 require 'pry'
 
 #
-def init_apple_jp_root(base, html_file_name)
+def init_apple_jp_root(url, html_file_name)
+  base = File.basename(url) # "https://www.apple.com/jp/" -> "jp"
+
   # /jp ディレクトリの作成
   begin
     Dir.mkdir(base)
@@ -124,7 +126,7 @@ html_file_name = "index.html"
 
 # HTTP リクエストによって取得した body をローカルファイルに書き込み
 base = File.basename(url) # "https://www.apple.com/jp/" -> "jp"
-init_apple_jp_root(base, html_file_name)
+init_apple_jp_root(url, html_file_name)
 
 hrefs = get_site_links(url)
 hrefs.each do |l|
