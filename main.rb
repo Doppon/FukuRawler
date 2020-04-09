@@ -9,9 +9,9 @@ end
 
 # 指定された URL のサイト内にあるリンクを全てここで渡している
 def get_site_links(url)
-  hrefs = []
-  links = []
-  srcs = []
+  hrefs = [] # aタグ
+  links = [] # linkタグ
+  srcs = []  # javascriptのタグ
   doc = Nokogiri::HTML(open(url))
   doc.css("a").each do |el|
     hrefs << el[:href]
