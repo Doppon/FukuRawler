@@ -185,6 +185,82 @@ def craw_css(path)
   end
 end
 
+def main(url, html_file_name)
+  hrefs = get_site_links(url)
+  hrefs.each do |l|
+    # 仮に何も要素が入ってなかった場合
+    next unless l
+
+    # 外部リンクだった場合
+    if l[0..7] == "https://"
+      # TODO: クローリングさせるように
+      puts("INFO: SKIP    - OUTSIDE URL: #{l}")
+      next
+    end
+
+    # パス "#" の対策
+    if l == "#"
+      puts("INFO: SKIP    - PATH #")
+      next
+    end
+
+    begin
+      # ディレクトリの作成( 階層的 )
+      mkdir_name = ""
+      mkdir_name = loop_mkdir(mkdir_name, l)
+
+      # ディレクトリの作成( 階層なし )
+      if mkdir_name.empty?
+        #
+      elsif (/.css/ =~ l)
+        # ディレクトリが生成されないように
+      elsif (/.js/ =~ l)
+        # ディレクトリが生成されないように
+      else
+        Dir.mkdir(mkdir_name)
+        puts("INFO: CREATED - DIR - #{mkdir_name}")
+      end
+
+      open(get_apple_domain(url) + "/" + mkdir_name) do |io|
+        # index.html の作成
+        if io.content_type == "text/html"
+          open("./#{mkdir_name}/#{html_file_name}", "wb") do |html|
+            html.write(io.read)
+          end
+          # css の作成
+        elsif io.content_type == "text/css"
+          open(".#{l}", "wb") do |css|
+            css.write(io.read)
+            puts("INFO: CREATED - CSS - #{l}")
+          end
+          # js の作成
+        elsif io.content_type == "application/x-javascript"
+          open(".#{l}", "wb") do |js|
+            js.write(io.read)
+            puts("INFO: CREATED - JavaScript - #{l}")
+          end
+        else
+          puts("ERROR: THE CONTENT TYPE IS #{io.content_type}.")
+        end
+      end
+    rescue => e
+      if e.message.length >= 11 && e.message[0..10] == "File exists"
+        next
+      end
+
+      if e.message.length >= 21 && e.message[0..20] == "redirection forbidden"
+        msg = e.message.split(" -> ")
+        redirect_link = msg.last
+        # TODO: サーチさせにいく
+        puts("INFO: SKIP    - REDIRECTION URL: #{redirect_link}")
+        next
+      end
+
+      puts(e)
+    end
+  end
+end
+
 # 入力受付
 print("URL: ")
 
@@ -196,79 +272,7 @@ html_file_name = "index.html"
 init_apple_jp_root(url, html_file_name)
 
 # メイン処理
-hrefs = get_site_links(url)
-hrefs.each do |l|
-  # 仮に何も要素が入ってなかった場合
-  next unless l
-
-  # 外部リンクだった場合
-  if l[0..7] == "https://"
-    # TODO: クローリングさせるように
-    puts("INFO: SKIP    - OUTSIDE URL: #{l}")
-    next
-  end
-
-  # パス "#" の対策
-  if l == "#"
-    puts("INFO: SKIP    - PATH #")
-    next
-  end
-
-  begin
-    # ディレクトリの作成( 階層的 )
-    mkdir_name = ""
-    mkdir_name = loop_mkdir(mkdir_name, l)
-
-    # ディレクトリの作成( 階層なし )
-    if mkdir_name.empty?
-      #
-    elsif (/.css/ =~ l)
-      # ディレクトリが生成されないように
-    elsif (/.js/ =~ l)
-      # ディレクトリが生成されないように
-    else
-      Dir.mkdir(mkdir_name)
-      puts("INFO: CREATED - DIR - #{mkdir_name}")
-    end
-
-    open(get_apple_domain(url) + "/" + mkdir_name) do |io|
-      # index.html の作成
-      if io.content_type == "text/html"
-        open("./#{mkdir_name}/#{html_file_name}", "wb") do |html|
-          html.write(io.read)
-        end
-      # css の作成
-      elsif io.content_type == "text/css"
-        open(".#{l}", "wb") do |css|
-          css.write(io.read)
-          puts("INFO: CREATED - CSS - #{l}")
-        end
-      # js の作成
-      elsif io.content_type == "application/x-javascript"
-        open(".#{l}", "wb") do |js|
-          js.write(io.read)
-          puts("INFO: CREATED - JavaScript - #{l}")
-        end
-      else
-        puts("ERROR: THE CONTENT TYPE IS #{io.content_type}.")
-      end
-    end
-  rescue => e
-    if e.message.length >= 11 && e.message[0..10] == "File exists"
-      next
-    end
-
-    if e.message.length >= 21 && e.message[0..20] == "redirection forbidden"
-      msg = e.message.split(" -> ")
-      redirect_link = msg.last
-      # TODO: サーチさせにいく
-      puts("INFO: SKIP    - REDIRECTION URL: #{redirect_link}")
-      next
-    end
-
-    puts(e)
-  end
-end
+main(url, html_file_name)
 
 
 # CSS内のクローリング( 主に画像 )
