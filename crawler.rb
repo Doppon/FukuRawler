@@ -2,6 +2,15 @@ require 'open-uri'
 require "nokogiri"
 require 'pry'
 
+def init_apple_jp_root(url)
+  base = url
+  begin
+    Dir.mkdir(base)
+  rescue => e
+    puts(e)
+  end
+end
+
 # 
 def get_apple_domain(url)
   File.dirname(url) # "https://www.apple.com/jp/" -> "https://www.apple.com"
@@ -89,11 +98,7 @@ html_file_name = "index.html"
 
 # HTTP リクエストによって取得した body をローカルファイルに書き込み
 base = File.basename(url) # "https://www.apple.com/jp/" -> "jp"
-begin
-  Dir.mkdir(base)
-rescue => e
-  puts(e)
-end
+init_apple_jp_root(base)
 
 open("./#{base}/#{html_file_name}", "wb") do |html|
   open(url) do |io|
