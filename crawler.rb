@@ -30,6 +30,7 @@ def get_site_links(url)
   return hrefs + links + srcs
 end
 
+#
 def loop_mkdir(mkdir_name, l)
   # 最初の / を切り取り | 基本的に "/" から始まってる
   mkdir_name = l[1..-1] if l[0] == "/"
