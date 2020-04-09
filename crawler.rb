@@ -127,24 +127,24 @@ def craw_css(path)
     background_images.each do |background_image|
       # パスの指定
       # background-image:url("---" の中身が取得できる
-      p = background_image[22..-2]
+      background_image_url = background_image[22..-2]
 
 
       # ディレクトリ作成
       mkdir_name = ""
-      mkdir_name = loop_mkdir(mkdir_name, p)
+      mkdir_name = loop_mkdir(mkdir_name, background_image_url)
       # ディレクトリの作成( 階層なし )
       if mkdir_name.empty?
         #
-      elsif (/.css/ =~ p)
+      elsif (/.css/ =~ background_image_url)
         # ディレクトリが生成されないように
-      elsif (/.js/ =~ p)
+      elsif (/.js/ =~ background_image_url)
         # ディレクトリが生成されないように
-      elsif (/.png/ =~ p)
+      elsif (/.png/ =~ background_image_url)
         # ディレクトリが生成されないように
-      elsif (/.jpg/ =~ p)
+      elsif (/.jpg/ =~ background_image_url)
         # ディレクトリが生成されないように
-      elsif (/.jpeg/ =~ p)
+      elsif (/.jpeg/ =~ background_image_url)
         # ディレクトリが生成されないように
       else
         Dir.mkdir(mkdir_name)
@@ -152,17 +152,17 @@ def craw_css(path)
       end
 
       # リンク先の取得( 画像 )
-      is_exist = File.exist?(".#{p}")
+      is_exist = File.exist?(".#{background_image_url}")
 
       if !is_exist
-        open(".#{p}", "wb") do |img|
-          open("https://www.apple.com" + p) do |io|
+        open(".#{background_image_url}", "wb") do |img|
+          open("https://www.apple.com" + background_image_url) do |io|
             img.puts(io.read)
-            puts("INFO: CREATED - IMG - #{p}")
+            puts("INFO: CREATED - IMG - #{background_image_url}")
           end
         end
       else
-        puts("INFO: SKIP    - IMG - #{p}")
+        puts("INFO: SKIP    - IMG - #{background_image_url}")
       end
     end
 
