@@ -119,9 +119,10 @@ def loop_mkdir(mkdir_name, l)
 end
 
 # 入力受付
-print("URL: "); url = gets.chomp
+print("URL: ")
 
 # 定数宣言
+url = gets.chomp
 html_file_name = "index.html"
 
 # HTTP リクエストによって取得した body をローカルファイルに書き込み
