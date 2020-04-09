@@ -239,18 +239,9 @@ open(open_file_path, "r") do |f|
     end
 
     # リンク先の取得( 画像 )
-    is_writed = false
-    begin
-      open(".#{p}") do |io|
-        if io.size > 1
-          is_writed = true
-        end
-      end
-    rescue
-      puts $!
-    end
+    is_exist = File.exist?(".#{p}")
 
-    if !is_writed
+    if !is_exist
       open(".#{p}", "wb") do |img|
         open("https://www.apple.com" + p) do |io|
           img.puts(io.read)
