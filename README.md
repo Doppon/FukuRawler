@@ -4,3 +4,8 @@
 ```
 $ ruby main.rb
 ```
+
+## ファイルをリセット
+```
+# ruby reset.rb
+```
