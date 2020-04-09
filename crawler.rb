@@ -262,6 +262,7 @@ def main(url, html_file_name)
   end
 end
 
+#
 def build()
   # 入力受付
   print("URL: ")
