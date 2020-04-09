@@ -117,6 +117,7 @@ hrefs.each do |l|
 
   # 外部リンクだった場合
   if l[0..7] == "https://"
+    # TODO: クローリングさせるように
     next
   end
 
