@@ -204,13 +204,13 @@ hrefs.each do |l|
   # 外部リンクだった場合
   if l[0..7] == "https://"
     # TODO: クローリングさせるように
-    puts("INFO: SKIP   - OUTSIDE URL: #{l}")
+    puts("INFO: SKIP    - OUTSIDE URL: #{l}")
     next
   end
 
   # パス "#" の対策
   if l == "#"
-    puts("INFO: SKIP   - PATH #")
+    puts("INFO: SKIP    - PATH #")
     next
   end
 
@@ -262,7 +262,7 @@ hrefs.each do |l|
       msg = e.message.split(" -> ")
       redirect_link = msg.last
       # TODO: サーチさせにいく
-      puts("INFO: SKIP   - REDIRECTION URL: #{redirect_link}")
+      puts("INFO: SKIP    - REDIRECTION URL: #{redirect_link}")
       next
     end
 
