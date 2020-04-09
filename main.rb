@@ -207,7 +207,6 @@ open(open_file_path, "r") do |f|
     # ディレクトリ作成
     mkdir_name = ""
     mkdir_name = loop_mkdir(mkdir_name, p)
-
     # ディレクトリの作成( 階層なし )
     if mkdir_name.empty?
       #
@@ -225,7 +224,6 @@ open(open_file_path, "r") do |f|
       Dir.mkdir(mkdir_name)
     end
     # puts("INFO: CREATED - #{mkdir_name}")
-
 
 
     # リンク先の取得( 画像 )
