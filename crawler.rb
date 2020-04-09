@@ -192,7 +192,7 @@ print("URL: ")
 url = gets.chomp
 html_file_name = "index.html"
 
-# HTTP リクエストによって取得した body をローカルファイルに書き込み
+# 初期化
 init_apple_jp_root(url, html_file_name)
 
 # メイン処理
