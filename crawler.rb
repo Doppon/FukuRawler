@@ -5,10 +5,24 @@ require 'pry'
 #
 def init_apple_jp_root(url)
   base = url
+  html_file_name = "index.html"
+
+  # /jp ディレクトリの作成
   begin
     Dir.mkdir(base)
   rescue => e
     puts(e)
+  end
+
+  # /jp/index.html の作成
+  open("./#{base}/#{html_file_name}", "wb") do |html|
+    open(url) do |io|
+      if io.content_type == "text/html"
+        html.write(io.read)
+      else
+        puts("ERROR: THE CONTENT TYPE IS #{io.content_type}.")
+      end
+    end
   end
 end
 
@@ -101,15 +115,7 @@ html_file_name = "index.html"
 base = File.basename(url) # "https://www.apple.com/jp/" -> "jp"
 init_apple_jp_root(base)
 
-open("./#{base}/#{html_file_name}", "wb") do |html|
-  open(url) do |io|
-    if io.content_type == "text/html"
-      html.write(io.read)
-    else
-      puts("ERROR: THE CONTENT TYPE IS #{io.content_type}.")
-    end
-  end
-end
+
 
 hrefs = get_site_links(url)
 # 取得で来たリンクのフォルダ内構成づくり
