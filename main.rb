@@ -7,7 +7,7 @@ def get_apple_domain(url)
   File.dirname(url) # "https://www.apple.com/jp/" -> "https://www.apple.com"
 end
 
-# 指定された URL のサイト内にあるリンクを全てここで渡している
+#
 def get_site_links(url)
   hrefs = [] # aタグ
   links = [] # linkタグ
