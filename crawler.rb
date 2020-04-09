@@ -262,20 +262,23 @@ def main(url, html_file_name)
   end
 end
 
-# 入力受付
-print("URL: ")
+def build()
+  # 入力受付
+  print("URL: ")
 
-# 定数宣言
-url = gets.chomp
-html_file_name = "index.html"
+  # 定数宣言
+  url = gets.chomp
+  html_file_name = "index.html"
 
-# 初期化
-init_apple_jp_root(url, html_file_name)
+  # 初期化
+  init_apple_jp_root(url, html_file_name)
 
-# メイン処理
-main(url, html_file_name)
+  # メイン処理
+  main(url, html_file_name)
 
+  # CSS内のクローリング( 主に画像 )
+  open_file_path = "./v/home/d/built/styles/main.built.css"
+  craw_css(open_file_path)
+end
 
-# CSS内のクローリング( 主に画像 )
-open_file_path = "./v/home/d/built/styles/main.built.css"
-craw_css(open_file_path)
+build()
