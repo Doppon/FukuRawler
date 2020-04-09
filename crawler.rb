@@ -196,6 +196,7 @@ hrefs.each do |l|
       msg = e.message.split(" -> ")
       redirect_link = msg.last
       # TODO: サーチさせにいく
+      puts("INFO: SKIP REDIRECTION URL: #{redirect_link}")
       next
     end
 
