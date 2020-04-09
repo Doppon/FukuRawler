@@ -9,6 +9,7 @@ def init_apple_jp_root(url, html_file_name)
   # /jp ディレクトリの作成
   begin
     Dir.mkdir(base)
+    puts("INFO: CREATED - DIR - #{base}")
   rescue => e
     puts(e)
   end
@@ -160,8 +161,8 @@ hrefs.each do |l|
       # ディレクトリが生成されないように
     else
       Dir.mkdir(mkdir_name)
+      puts("INFO: CREATED - DIR - #{mkdir_name}")
     end
-    puts("INFO: CREATED - DIR - #{mkdir_name}")
 
     open(get_apple_domain(url) + "/" + mkdir_name) do |io|
       # index.html の作成
@@ -232,8 +233,8 @@ open(open_file_path, "r") do |f|
       # ディレクトリが生成されないように
     else
       Dir.mkdir(mkdir_name)
+      puts("INFO: CREATED - DIR - #{mkdir_name}")
     end
-    puts("INFO: CREATED - DIR - #{mkdir_name}")
 
 
     # リンク先の取得( 画像 )
