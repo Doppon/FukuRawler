@@ -3,9 +3,7 @@ require "nokogiri"
 require 'pry'
 
 #
-def init_apple_jp_root(url, html_file_name)
-  base = url
-
+def init_apple_jp_root(base, html_file_name)
   # /jp ディレクトリの作成
   begin
     Dir.mkdir(base)
