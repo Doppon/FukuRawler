@@ -193,7 +193,6 @@ url = gets.chomp
 html_file_name = "index.html"
 
 # HTTP リクエストによって取得した body をローカルファイルに書き込み
-base = File.basename(url) # "https://www.apple.com/jp/" -> "jp"
 init_apple_jp_root(url, html_file_name)
 
 # メイン処理
