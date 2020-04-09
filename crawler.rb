@@ -196,7 +196,7 @@ open("./#{base}/#{html_file_name}", "r") do |f|
   end
 end
 
-# TODO: クローリングの中で処理するように変更
+# CSS内のクローリング( 主に画像 )
 open_file_path = "./v/home/d/built/styles/main.built.css"
 open(open_file_path, "r") do |f|
   buffer = f.read
