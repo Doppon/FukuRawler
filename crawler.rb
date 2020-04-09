@@ -166,16 +166,12 @@ def craw_css(path)
     end
 
     # TODO: 書き込みパスからの相対パスあぶり出し
-    # openしてるパスから変換
-    # openしてるパス: ./v/home/d/built/styles/main.built.css
-    #
     #
     # "./v/home/d/built/styles/main.built.css".split("/").count
     # => 7
     #
     # ../../../../../../v/home/d/built/images/mac-takeover/graph
     #
-
     back_path = ""
     (path.split("/").count - 1).times { back_path += "../" }
     back_path = back_path[0..-2] # ..//v/home などを避けるため
