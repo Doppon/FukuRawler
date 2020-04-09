@@ -241,10 +241,14 @@ open(open_file_path, "r") do |f|
 
     # リンク先の取得( 画像 )
     open(".#{p}", "wb") do |img|
-      # 実際のコンテンツの中身取得
-      open("https://www.apple.com" + p) do |io|
-        img.puts(io.read)
-        puts("INFO: CREATED - IMG - #{p}")
+      # FATAL: wb だと 0 になっちゃう
+      if img.size > 1
+        puts("INFO: SKIP    - IMG - #{p}")
+      else
+        open("https://www.apple.com" + p) do |io|
+          img.puts(io.read)
+          puts("INFO: CREATED - IMG - #{p}")
+        end
       end
     end
   end
