@@ -196,6 +196,7 @@ html_file_name = "index.html"
 base = File.basename(url) # "https://www.apple.com/jp/" -> "jp"
 init_apple_jp_root(url, html_file_name)
 
+# メイン処理
 hrefs = get_site_links(url)
 hrefs.each do |l|
   # 仮に何も要素が入ってなかった場合
