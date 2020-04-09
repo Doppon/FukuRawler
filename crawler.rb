@@ -123,7 +123,7 @@ hrefs.each do |l|
 
   # パス "#" の対策
   if l == "#"
-    # puts("INFO: SKIP PATH #")
+    puts("INFO: SKIP PATH #")
     next
   end
 
@@ -142,7 +142,7 @@ hrefs.each do |l|
     else
       Dir.mkdir(mkdir_name)
     end
-    # puts("INFO: CREATED - #{mkdir_name}")
+    puts("INFO: CREATED - #{mkdir_name}")
 
     open(get_apple_domain(url) + "/" + mkdir_name) do |io|
       # index.html の作成
@@ -227,7 +227,7 @@ open(open_file_path, "r") do |f|
     else
       Dir.mkdir(mkdir_name)
     end
-    # puts("INFO: CREATED - #{mkdir_name}")
+    puts("INFO: CREATED - #{mkdir_name}")
 
 
     # リンク先の取得( 画像 )
