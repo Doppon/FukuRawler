@@ -238,18 +238,27 @@ open(open_file_path, "r") do |f|
       puts("INFO: CREATED - DIR - #{mkdir_name}")
     end
 
-
     # リンク先の取得( 画像 )
-    open(".#{p}", "wb") do |img|
-      # FATAL: wb だと 0 になっちゃう
-      if img.size > 1
-        puts("INFO: SKIP    - IMG - #{p}")
-      else
+    is_writed = false
+    begin
+      open(".#{p}") do |io|
+        if io.size > 1
+          is_writed = true
+        end
+      end
+    rescue
+      puts $!
+    end
+
+    if !is_writed
+      open(".#{p}", "wb") do |img|
         open("https://www.apple.com" + p) do |io|
           img.puts(io.read)
           puts("INFO: CREATED - IMG - #{p}")
         end
       end
+    else
+      puts("INFO: SKIP    - IMG - #{p}")
     end
   end
 
