@@ -2,6 +2,7 @@ require 'open-uri'
 require "nokogiri"
 require 'pry'
 
+#
 def init_apple_jp_root(url)
   base = url
   begin
