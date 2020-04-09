@@ -259,6 +259,3 @@ open(open_file_path, "r") do |f|
     css.write(buffer)
   end
 end
-
-# 最初のページにあたる ./jp/index.html のオープン
-# exec "open ./#{base}/#{html_file_name}"
