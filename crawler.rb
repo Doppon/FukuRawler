@@ -122,47 +122,64 @@ class Crawler
   #
   def craw_css(path)
     open(path, "r") do |f|
+      # リンクの取得
       buffer = f.read
       background_images = buffer.scan(/background-image:url\(\"[^\"]+\"/)
 
+      # マルチスレッドの初期化
+      h = {} # 戻り値の空ハッシュを作成
+
       background_images.each do |background_image|
-        # background-image:url("---" の中身が取得できる
-        background_image_url = background_image[22..-2]
+        h[background_image] = Thread.new do
+          # background-image:url("---" の中身が取得できる
+          background_image_url = background_image[22..-2]
 
 
-        # ディレクトリ作成
-        mkdir_name = ""
-        mkdir_name = loop_mkdir(mkdir_name, background_image_url)
-        # ディレクトリの作成( 階層なし )
-        if mkdir_name.empty?
-          #
-        elsif (/.css/ =~ background_image_url)
-          # ディレクトリが生成されないように
-        elsif (/.js/ =~ background_image_url)
-          # ディレクトリが生成されないように
-        elsif (/.png/ =~ background_image_url)
-          # ディレクトリが生成されないように
-        elsif (/.jpg/ =~ background_image_url)
-          # ディレクトリが生成されないように
-        elsif (/.jpeg/ =~ background_image_url)
-          # ディレクトリが生成されないように
-        else
-          Dir.mkdir(mkdir_name)
-          puts("INFO: CREATED - DIR - #{mkdir_name}")
-        end
-
-        # リンク先の取得( 画像 )
-        is_exist = File.exist?(".#{background_image_url}")
-
-        if !is_exist
-          open(".#{background_image_url}", "wb") do |img|
-            open("https://www.apple.com" + background_image_url) do |io|
-              img.puts(io.read)
-              puts("INFO: CREATED - IMG - #{background_image_url}")
-            end
+          # ディレクトリ作成
+          mkdir_name = ""
+          mkdir_name = loop_mkdir(mkdir_name, background_image_url)
+          # ディレクトリの作成( 階層なし )
+          if mkdir_name.empty?
+            #
+          elsif (/.css/ =~ background_image_url)
+            # ディレクトリが生成されないように
+          elsif (/.js/ =~ background_image_url)
+            # ディレクトリが生成されないように
+          elsif (/.png/ =~ background_image_url)
+            # ディレクトリが生成されないように
+          elsif (/.jpg/ =~ background_image_url)
+            # ディレクトリが生成されないように
+          elsif (/.jpeg/ =~ background_image_url)
+            # ディレクトリが生成されないように
+          else
+            Dir.mkdir(mkdir_name)
+            puts("INFO: CREATED - DIR - #{mkdir_name}")
           end
-        else
-          puts("INFO: SKIP    - IMG - #{background_image_url}")
+
+          # リンク先の取得( 画像 )
+          is_exist = File.exist?(".#{background_image_url}")
+
+          if !is_exist
+            open(".#{background_image_url}", "wb") do |img|
+              open("https://www.apple.com" + background_image_url) do |io|
+                img.puts(io.read)
+                puts("INFO: CREATED - IMG - #{background_image_url}")
+              end
+            end
+          else
+            puts("INFO: SKIP    - IMG - #{background_image_url}")
+          end
+        end
+      end
+
+      # ハッシュを反復処理
+      h.each_pair do |filename, thread|
+        begin
+          # Thread#value -> スレッドが終了するまで待ち、戻り値を得る
+          h[filename] = thread.value
+        rescue
+          # $! -> Exception | nil
+          h[filename] = $!
         end
       end
 
