@@ -118,6 +118,78 @@ def loop_mkdir(mkdir_name, l)
   mkdir_name
 end
 
+#
+def craw_css(path)
+  open(path, "r") do |f|
+    buffer = f.read
+    ary = buffer.scan(/background-image:url\(\"[^\"]+\"/)
+
+    ary.each do |a|
+      # パスの指定
+      # background-image:url("---" の中身が取得できる
+      p = a[22..-2]
+
+
+      # ディレクトリ作成
+      mkdir_name = ""
+      mkdir_name = loop_mkdir(mkdir_name, p)
+      # ディレクトリの作成( 階層なし )
+      if mkdir_name.empty?
+        #
+      elsif (/.css/ =~ p)
+        # ディレクトリが生成されないように
+      elsif (/.js/ =~ p)
+        # ディレクトリが生成されないように
+      elsif (/.png/ =~ p)
+        # ディレクトリが生成されないように
+      elsif (/.jpg/ =~ p)
+        # ディレクトリが生成されないように
+      elsif (/.jpeg/ =~ p)
+        # ディレクトリが生成されないように
+      else
+        Dir.mkdir(mkdir_name)
+        puts("INFO: CREATED - DIR - #{mkdir_name}")
+      end
+
+      # リンク先の取得( 画像 )
+      is_exist = File.exist?(".#{p}")
+
+      if !is_exist
+        open(".#{p}", "wb") do |img|
+          open("https://www.apple.com" + p) do |io|
+            img.puts(io.read)
+            puts("INFO: CREATED - IMG - #{p}")
+          end
+        end
+      else
+        puts("INFO: SKIP    - IMG - #{p}")
+      end
+    end
+
+    # TODO: 書き込みパスからの相対パスあぶり出し
+    # openしてるパスから変換
+    # openしてるパス: ./v/home/d/built/styles/main.built.css
+    #
+    #
+    # "./v/home/d/built/styles/main.built.css".split("/").count
+    # => 7
+    #
+    # ../../../../../../v/home/d/built/images/mac-takeover/graph
+    #
+
+    back_path = ""
+    (path.split("/").count - 1).times { back_path += "../" }
+    back_path = back_path[0..-2] # ..//v/home などを避けるため
+
+    # TODO: /background-image:url\(\"[^\"]+\"/ の正規表現で柔軟な対応にする
+    buffer.gsub!(/\/v\/home\/d/, "../..")
+
+    open(path, "w") do |css|
+      css.write(buffer)
+    end
+  end
+end
+
 # 入力受付
 print("URL: ")
 
@@ -206,71 +278,4 @@ end
 
 # CSS内のクローリング( 主に画像 )
 open_file_path = "./v/home/d/built/styles/main.built.css"
-open(open_file_path, "r") do |f|
-  buffer = f.read
-  ary = buffer.scan(/background-image:url\(\"[^\"]+\"/)
-
-  ary.each do |a|
-    # パスの指定
-    # background-image:url("---" の中身が取得できる
-    p = a[22..-2]
-
-
-    # ディレクトリ作成
-    mkdir_name = ""
-    mkdir_name = loop_mkdir(mkdir_name, p)
-    # ディレクトリの作成( 階層なし )
-    if mkdir_name.empty?
-      #
-    elsif (/.css/ =~ p)
-      # ディレクトリが生成されないように
-    elsif (/.js/ =~ p)
-      # ディレクトリが生成されないように
-    elsif (/.png/ =~ p)
-      # ディレクトリが生成されないように
-    elsif (/.jpg/ =~ p)
-      # ディレクトリが生成されないように
-    elsif (/.jpeg/ =~ p)
-      # ディレクトリが生成されないように
-    else
-      Dir.mkdir(mkdir_name)
-      puts("INFO: CREATED - DIR - #{mkdir_name}")
-    end
-
-    # リンク先の取得( 画像 )
-    is_exist = File.exist?(".#{p}")
-
-    if !is_exist
-      open(".#{p}", "wb") do |img|
-        open("https://www.apple.com" + p) do |io|
-          img.puts(io.read)
-          puts("INFO: CREATED - IMG - #{p}")
-        end
-      end
-    else
-      puts("INFO: SKIP    - IMG - #{p}")
-    end
-  end
-
-  # TODO: 書き込みパスからの相対パスあぶり出し
-  # openしてるパスから変換
-  # openしてるパス: ./v/home/d/built/styles/main.built.css
-  #
-  # 
-  # "./v/home/d/built/styles/main.built.css".split("/").count
-  # => 7
-  #
-  # ../../../../../../v/home/d/built/images/mac-takeover/graph
-  # 
-
-  back_path = ""
-  (open_file_path.split("/").count - 1).times { back_path += "../" }
-  back_path = back_path[0..-2] # ..//v/home などを避けるため
-
-  # TODO: /background-image:url\(\"[^\"]+\"/ の正規表現で柔軟な対応にする
-  buffer.gsub!(/\/v\/home\/d/, "../..")
-
-  open(open_file_path, "w") do |css|
-    css.write(buffer)
-  end
-end
+craw_css(open_file_path)
