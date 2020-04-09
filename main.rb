@@ -4,10 +4,7 @@ require 'pry'
 
 # 
 def get_apple_domain(url)
-  # "https://www.apple.com/jp/"
-  # ↓
-  # "https://www.apple.com"
-  File.dirname(url)
+  File.dirname(url) # "https://www.apple.com/jp/" -> "https://www.apple.com"
 end
 
 # 指定された URL のサイト内にあるリンクを全てここで渡している
