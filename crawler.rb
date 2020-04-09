@@ -138,7 +138,7 @@ hrefs.each do |l|
   # 外部リンクだった場合
   if l[0..7] == "https://"
     # TODO: クローリングさせるように
-    puts("INFO: SKIP OUTSIDE URL #")
+    puts("INFO: SKIP OUTSIDE URL: #{l}")
     next
   end
 
