@@ -124,10 +124,10 @@ def craw_css(path)
     buffer = f.read
     background_images = buffer.scan(/background-image:url\(\"[^\"]+\"/)
 
-    background_images.each do |a|
+    background_images.each do |background_image|
       # パスの指定
       # background-image:url("---" の中身が取得できる
-      p = a[22..-2]
+      p = background_image[22..-2]
 
 
       # ディレクトリ作成
