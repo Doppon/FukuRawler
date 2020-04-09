@@ -23,6 +23,22 @@ def init_apple_jp_root(base, html_file_name)
   end
 end
 
+#
+def replace_root_file_path(base, html_file_name)
+  open("./#{base}/#{html_file_name}", "r") do |f|
+    buffer = f.read
+    buffer.gsub!(/href=\"/, 'href=".')
+    # CSS のパスは root からになっているので root にするように( ./ -> ../ )
+    buffer.gsub!(/href=\"[^\"]+.css\"/) { |s| "#{s[0..5]}.#{s[6..-1]}" }
+    # jS  のパスは root からになっているので root にするように(  / -> ../ )
+    buffer.gsub!(/src=\"[^\"]+.js\"/) { |s| "#{s[0..4]}..#{s[5..-1]}" }
+
+    open("./#{base}/#{html_file_name}", "w") do |html|
+      html.write(buffer)
+    end
+  end
+end
+
 # 
 def get_apple_domain(url)
   File.dirname(url) # "https://www.apple.com/jp/" -> "https://www.apple.com"
@@ -182,19 +198,6 @@ hrefs.each do |l|
   end
 end
 
-# 0階層目のhrefのパスを置換
-open("./#{base}/#{html_file_name}", "r") do |f|
-  buffer = f.read
-  buffer.gsub!(/href=\"/, 'href=".')
-  # CSS のパスは root からになっているので root にするように( ./ -> ../ )
-  buffer.gsub!(/href=\"[^\"]+.css\"/) { |s| "#{s[0..5]}.#{s[6..-1]}" }
-  # jS  のパスは root からになっているので root にするように(  / -> ../ )
-  buffer.gsub!(/src=\"[^\"]+.js\"/) { |s| "#{s[0..4]}..#{s[5..-1]}" }
-
-  open("./#{base}/#{html_file_name}", "w") do |html|
-    html.write(buffer)
-  end
-end
 
 # CSS内のクローリング( 主に画像 )
 open_file_path = "./v/home/d/built/styles/main.built.css"
