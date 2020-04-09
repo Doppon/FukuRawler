@@ -122,9 +122,9 @@ end
 def craw_css(path)
   open(path, "r") do |f|
     buffer = f.read
-    ary = buffer.scan(/background-image:url\(\"[^\"]+\"/)
+    background_images = buffer.scan(/background-image:url\(\"[^\"]+\"/)
 
-    ary.each do |a|
+    background_images.each do |a|
       # パスの指定
       # background-image:url("---" の中身が取得できる
       p = a[22..-2]
