@@ -115,7 +115,7 @@ hrefs.each do |l|
   # 仮に何も要素が入ってなかった場合
   next unless l
 
-  # TODO: もしかしたら変更するかも
+  # 外部リンクだった場合
   if l[0..7] == "https://"
     next
   end
