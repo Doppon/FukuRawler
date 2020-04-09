@@ -110,12 +110,9 @@ print("URL: "); url = gets.chomp
 url_length = url.length
 html_file_name = "index.html"
 
-
 # HTTP リクエストによって取得した body をローカルファイルに書き込み
 base = File.basename(url) # "https://www.apple.com/jp/" -> "jp"
 init_apple_jp_root(base)
-
-
 
 hrefs = get_site_links(url)
 # 取得で来たリンクのフォルダ内構成づくり
