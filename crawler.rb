@@ -11,12 +11,8 @@ class Crawler
     is_dir_exist = Dir.exist?(base)
     if !is_dir_exist
       # /jp ディレクトリの作成
-      begin
-        Dir.mkdir(base)
-        puts("INFO: CREATED - DIR - #{base}")
-      rescue => e
-        puts(e)
-      end
+      Dir.mkdir(base)
+      puts("INFO: CREATED - DIR - #{base}")
     else
       puts("INFO: SKIP    - DIR - #{base}")
     end
