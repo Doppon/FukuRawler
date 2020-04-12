@@ -8,12 +8,17 @@ class Crawler
   def init_apple_jp_root(url, html_file_name)
     base = File.basename(url) # "https://www.apple.com/jp/" -> "jp"
 
-    # /jp ディレクトリの作成
-    begin
-      Dir.mkdir(base)
-      puts("INFO: CREATED - DIR - #{base}")
-    rescue => e
-      puts(e)
+    is_dir_exist = Dir.exist?(base)
+    if !is_dir_exist
+      # /jp ディレクトリの作成
+      begin
+        Dir.mkdir(base)
+        puts("INFO: CREATED - DIR - #{base}")
+      rescue => e
+        puts(e)
+      end
+    else
+      puts("INFO: SKIP    - DIR - #{base}")
     end
 
     # /jp/index.html の作成
