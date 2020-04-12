@@ -101,7 +101,10 @@ class Crawler
         #     "./ac/globalnav/5/ja_JP/styles"
         #
         #   File.dirname(css_file_path) + "/" + background_images.first[22..-2]
-        # 
+        #     "./ac/globalnav/5/ja_JP/styles/../images/globalnav/apple/image_large.svg"
+        #
+        # background_image が /v/home/d/~ などの場合
+        #   wip
 
         h[background_image] = Thread.new do
           background_image_url = background_image[22..-2] # background-image:url("---" の中身が取得できる
