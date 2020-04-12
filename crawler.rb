@@ -21,15 +21,20 @@ class Crawler
       puts("INFO: SKIP    - DIR - #{base}")
     end
 
-    # /jp/index.html の作成
-    open("./#{base}/#{html_file_name}", "wb") do |html|
-      open(url) do |io|
-        if io.content_type == "text/html"
-          html.write(io.read)
-        else
-          puts("ERROR: THE CONTENT TYPE IS #{io.content_type}.")
+    is_html_exist = File.exist?("./#{base}/#{html_file_name}")
+    if !is_html_exist    
+      # /jp/index.html の作成
+      open("./#{base}/#{html_file_name}", "wb") do |html|
+        open(url) do |io|
+          if io.content_type == "text/html"
+            html.write(io.read)
+          else
+            puts("ERROR: THE CONTENT TYPE IS #{io.content_type}.")
+          end
         end
       end
+    else
+      puts("INFO: SKIP    - HTML - ./#{base}/#{html_file_name}")
     end
   end
 
