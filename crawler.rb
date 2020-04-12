@@ -91,9 +91,7 @@ class Crawler
       last_is_file = true
     end
 
-    # jp/shop/goto/bag
-    # ["jp", "shop", "goto", "bag"]
-    dir_names = mkdir_name.split("/")
+    dir_names = mkdir_name.split("/") # jp/shop/goto/bag -> ["jp", "shop", "goto", "bag"]
 
     if last_is_file
       # ["jp", "shop", "goto", "bag", "hoge.css"]
