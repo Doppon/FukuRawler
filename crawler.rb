@@ -90,6 +90,7 @@ class Crawler
 
       background_images.each do |background_image|
         h[background_image] = Thread.new do
+          background_image_url = background_image[22..-2] # background-image:url("---" の中身が取得できる
           # 相対パスの場合
           #   background_image が ../ や ../../ の場合
           #     css_file_path
