@@ -90,16 +90,17 @@ class Crawler
 
       background_images.each do |background_image|
 
-        # css_file_path:
-        #   "./ac/globalnav/5/ja_JP/styles/ac-globalnav.built.css"
-        # 
-        # background_images.first[22..-2]
-        #   "../images/globalnav/apple/image_large.svg"
+        # background_image が ../ や ../../ の場合
+        #   css_file_path:
+        #     "./ac/globalnav/5/ja_JP/styles/ac-globalnav.built.css"
         #
-        # File.dirname(css_file_path)
-        #   "./ac/globalnav/5/ja_JP/styles"
+        #   background_images.first[22..-2]
+        #     "../images/globalnav/apple/image_large.svg"
         #
-        # File.dirname(css_file_path) + "/" + background_images.first[22..-2]
+        #   File.dirname(css_file_path)
+        #     "./ac/globalnav/5/ja_JP/styles"
+        #
+        #   File.dirname(css_file_path) + "/" + background_images.first[22..-2]
         # 
 
         h[background_image] = Thread.new do
