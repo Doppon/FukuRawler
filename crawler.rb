@@ -135,6 +135,7 @@ class Crawler
               puts("INFO: SKIP    - DIR - .#{dir_name}")
             end
           else
+            # NOTE: CSS の読み込みだから基本的にこの分岐はない
             is_dir_exist = Dir.exist?(background_image_url)
             if !is_dir_exist
               FileUtils.mkdir_p(".#{background_image_url}")
