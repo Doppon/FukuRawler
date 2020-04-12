@@ -79,8 +79,8 @@ class Crawler
   end
 
   #
-  def craw_css(path)
-    open(path, "r") do |f|
+  def craw_css(css_file_path)
+    open(css_file_path, "r") do |f|
       # リンクの取得
       buffer = f.read
       background_images = buffer.scan(/background-image:url\(\"[^\"]+\"/)
@@ -153,13 +153,13 @@ class Crawler
       # ../../../../../../v/home/d/built/images/mac-takeover/graph
       #
       back_path = ""
-      (path.split("/").count - 1).times { back_path += "../" }
+      (css_file_path.split("/").count - 1).times { back_path += "../" }
       back_path = back_path[0..-2] # ..//v/home などを避けるため
 
       # TODO: /background-image:url\(\"[^\"]+\"/ の正規表現で柔軟な対応にする
       buffer.gsub!(/\/v\/home\/d/, "../..")
 
-      open(path, "w") do |css|
+      open(css_file_path, "w") do |css|
         css.write(buffer)
       end
     end
