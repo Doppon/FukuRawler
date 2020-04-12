@@ -115,7 +115,16 @@ class Crawler
           #
           #     ".#{background_images.last[22..-2]}"
           #       "./ac/flags/1/images/jp/32.png"
-          background_image_url = background_image[22..-2] # background-image:url("---" の中身が取得できる
+
+          # 相対パスの場合だったら
+          if background_image_url[0..2] == "../"
+            target_link = File.dirname(css_file_path) + "/" + background_images.first[22..-2]
+            target_link = target_link[1..]
+          # 絶対パスの場合だったら
+          elsif background_image_url[0] == "/"
+            target_link = background_image_url
+            target_link = target_link[1..]
+          end
 
           # もしエンコードした XML として svg が埋め込まれている場合
           if /svg\+xml/ =~ background_image_url
