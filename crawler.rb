@@ -81,10 +81,10 @@ class Crawler
   #
   def loop_mkdir(mkdir_name, l)
     if l[0] == "/"
-      mkdir_name = l[1..-1]  # "/samp/d/" -> "samp/d/"
+      mkdir_name = l[1..-1]  # "/jp/shop/goto/bag/" -> " jp/shop/goto/bag/"
     end
 
-    if mkdir_name[-1] == "/" # "samp/d/"  -> "samp/d"
+    if mkdir_name[-1] == "/" # " jp/shop/goto/bag/" -> " jp/shop/goto/bag "
       mkdir_name = mkdir_name[0..-2]
       last_is_file = false
     else
