@@ -81,7 +81,7 @@ class Crawler
   #
   def craw_css(css_file_path)
     open(css_file_path, "r") do |f|
-      # リンクの取得
+      # CSS ファイル内に存在するリンクの取得
       buffer = f.read
       background_images = buffer.scan(/background-image:url\(\"[^\"]+\"/)
 
