@@ -232,26 +232,35 @@ class Crawler
       end
 
       begin
-        # ディレクトリの作成( 階層的 )
-        mkdir_name = ""
-        mkdir_name = loop_mkdir(mkdir_name, l)
+        # # ディレクトリの作成( 階層的 )
+        # mkdir_name = ""
+        # mkdir_name = loop_mkdir(mkdir_name, l)
 
-        # ディレクトリの作成( 階層なし )
-        if mkdir_name.empty?
-          #
-        elsif (/.css/ =~ l)
-          # ディレクトリが生成されないように
-        elsif (/.js/ =~ l)
-          # ディレクトリが生成されないように
+        # # ディレクトリの作成( 階層なし )
+        # if mkdir_name.empty?
+        #   #
+        # elsif (/.css/ =~ l) # hitした数値が返り値
+        #   # ディレクトリが生成されないように
+        # elsif (/.js/ =~ l)
+        #   # ディレクトリが生成されないように
+        # else
+        #   Dir.mkdir(mkdir_name)
+        #   puts("INFO: CREATED - DIR - #{mkdir_name}")
+        # end
+
+        if (/.css/ =~ l) || (/.js/ =~ l)
+          dir_name = File.dirname(l) # 最後の拡張子が含まれるファイルを除外
+          FileUtils.mkdir_p(".#{dir_name}")
+          puts("INFO: CREATED - DIR - .#{dir_name}")
         else
-          Dir.mkdir(mkdir_name)
-          puts("INFO: CREATED - DIR - #{mkdir_name}")
+          FileUtils.mkdir_p(".#{l}")
+          puts("INFO: CREATED - DIR - .#{l}")
         end
 
-        open(get_apple_domain(url) + "/" + mkdir_name) do |io|
+        open(get_apple_domain(url) + l) do |io|
           # index.html の作成
           if io.content_type == "text/html"
-            open("./#{mkdir_name}/#{html_file_name}", "wb") do |html|
+            open("./#{l}/#{html_file_name}", "wb") do |html|
               html.write(io.read)
             end
             # css の作成
