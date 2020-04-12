@@ -168,7 +168,7 @@ class Crawler
       next unless l
 
       # 外部リンクだった場合
-      if l[0..7] == "https://"
+      if l[0..7] == "https://" || l[0..6] == "http://"
         # TODO: クローリングさせるように
         puts("INFO: SKIP    - OUTSIDE URL: #{l}")
         next
