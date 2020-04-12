@@ -79,54 +79,6 @@ class Crawler
   end
 
   #
-  def loop_mkdir(mkdir_name, l)
-    if l[0] == "/"
-      mkdir_name = l[1..-1]  # "/jp/shop/goto/bag/" -> " jp/shop/goto/bag/"
-    end
-
-    if mkdir_name[-1] == "/" # " jp/shop/goto/bag/" -> " jp/shop/goto/bag "
-      mkdir_name = mkdir_name[0..-2]
-      last_is_file = false
-    else
-      last_is_file = true
-    end
-
-    dir_names = mkdir_name.split("/") # jp/shop/goto/bag -> ["jp", "shop", "goto", "bag"]
-
-    if last_is_file
-      # ["jp", "shop", "goto", "bag", "hoge.css"]
-      # ["jp", "shop", "goto", "bag"]
-      dir_names = dir_names[0..-2]
-    end
-
-    # 配列の個数が 2 以上のとき、すなわち階層が 2 階層以上だった場合
-    if dir_names.length > 2
-      1.upto(dir_names.length) do |i|
-        dir_path = ""
-        max_count = i
-
-        i.times do |j|
-          dir_path += dir_names[j]
-          dir_path += "/" if j <= (max_count - 1)
-        end
-
-        # 例外処理をさせないとループから抜けてしまう
-        begin
-          Dir.mkdir(dir_path)
-          # puts("INFO: CREATED - #{dir_path}")
-        rescue => e
-          if e.message.length >= 11 && e.message[0..10] == "File exists"
-            next
-          end
-          puts(e)
-        end
-      end
-    end
-
-    mkdir_name
-  end
-
-  #
   def craw_css(path)
     open(path, "r") do |f|
       # リンクの取得
