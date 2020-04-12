@@ -84,7 +84,7 @@ class Crawler
       mkdir_name = l[1..-1]  # "/samp/d/" -> "samp/d/"
     end
 
-    if mkdir_name[-1] == "/" # 最後の / の切り取り( もし末尾に "/" が付いていた場合 )
+    if mkdir_name[-1] == "/" # "samp/d/"  -> "samp/d"
       mkdir_name = mkdir_name[0..-2]
       last_is_file = false
     else
