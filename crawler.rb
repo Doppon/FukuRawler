@@ -89,7 +89,6 @@ class Crawler
       h = {} # 戻り値の空ハッシュを作成
 
       background_images.each do |background_image|
-
         # 相対パスの場合
         #   background_image が ../ や ../../ の場合
         #     css_file_path
@@ -127,6 +126,7 @@ class Crawler
           # ディレクトリ作成
           if (/.css|.js|.png|.jpg|.jpeg|.svg/ =~ background_image_url)
             dir_name = File.dirname(background_image_url) # 最後の拡張子が含まれるファイルを除外
+
             is_dir_exist = Dir.exist?(dir_name)
             if !is_dir_exist
               FileUtils.mkdir_p(".#{dir_name}")
@@ -146,7 +146,6 @@ class Crawler
 
           # リンク先の取得( 画像 )
           is_exist = File.exist?(".#{background_image_url}")
-
           if !is_exist
             open(".#{background_image_url}", "wb") do |img|
               open("https://www.apple.com" + background_image_url) do |io|
