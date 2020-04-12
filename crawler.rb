@@ -91,7 +91,7 @@ class Crawler
       background_images.each do |background_image|
 
         # background_image が ../ や ../../ の場合
-        #   css_file_path:
+        #   css_file_path
         #     "./ac/globalnav/5/ja_JP/styles/ac-globalnav.built.css"
         #
         #   background_images.first[22..-2]
