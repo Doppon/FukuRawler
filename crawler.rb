@@ -99,7 +99,7 @@ class Crawler
           end
 
           # ディレクトリ作成
-          if (/.css|.js|.png|.jpg|.jpeg/ =~ background_image_url)
+          if (/.css|.js|.png|.jpg|.jpeg|.svg/ =~ background_image_url)
             dir_name = File.dirname(background_image_url) # 最後の拡張子が含まれるファイルを除外
             is_dir_exist = Dir.exist?(dir_name)
             if !is_dir_exist
@@ -217,6 +217,10 @@ class Crawler
             open(".#{l}", "wb") do |css|
               css.write(io.read)
               puts("INFO: CREATED - CSS - #{l}")
+
+              # CSS内のクローリング( 主に画像 )
+              open_file_path = ".#{l}"
+              craw_css(open_file_path)
             end
           # js の作成
           elsif io.content_type == "application/x-javascript"
@@ -260,9 +264,5 @@ class Crawler
 
     # メイン処理
     main(url, html_file_name)
-
-    # CSS内のクローリング( 主に画像 )
-    open_file_path = "./v/home/d/built/styles/main.built.css"
-    craw_css(open_file_path)
   end
 end
