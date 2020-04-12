@@ -232,22 +232,7 @@ class Crawler
       end
 
       begin
-        # # ディレクトリの作成( 階層的 )
-        # mkdir_name = ""
-        # mkdir_name = loop_mkdir(mkdir_name, l)
-
-        # # ディレクトリの作成( 階層なし )
-        # if mkdir_name.empty?
-        #   #
-        # elsif (/.css/ =~ l) # hitした数値が返り値
-        #   # ディレクトリが生成されないように
-        # elsif (/.js/ =~ l)
-        #   # ディレクトリが生成されないように
-        # else
-        #   Dir.mkdir(mkdir_name)
-        #   puts("INFO: CREATED - DIR - #{mkdir_name}")
-        # end
-
+        # ディレクトリ作成
         if (/.css/ =~ l) || (/.js/ =~ l)
           dir_name = File.dirname(l) # 最後の拡張子が含まれるファイルを除外
           FileUtils.mkdir_p(".#{dir_name}")
