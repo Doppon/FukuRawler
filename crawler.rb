@@ -12,9 +12,9 @@ class Crawler
     if !is_dir_exist
       # /jp ディレクトリの作成
       FileUtils.mkdir(base)
-      puts("INFO: CREATED - DIR - #{base}")
+      puts("INFO: CREATED - DIR - .#{base}")
     else
-      puts("INFO: SKIP    - DIR - #{base}")
+      puts("INFO: SKIP    - DIR - .#{base}")
     end
 
     is_html_exist = File.exist?("./#{base}/#{html_file_name}")
