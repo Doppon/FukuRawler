@@ -248,13 +248,13 @@ class Crawler
             open("./#{l}/#{html_file_name}", "wb") do |html|
               html.write(io.read)
             end
-            # css の作成
+          # css の作成
           elsif io.content_type == "text/css"
             open(".#{l}", "wb") do |css|
               css.write(io.read)
               puts("INFO: CREATED - CSS - #{l}")
             end
-            # js の作成
+          # js の作成
           elsif io.content_type == "application/x-javascript"
             open(".#{l}", "wb") do |js|
               js.write(io.read)
