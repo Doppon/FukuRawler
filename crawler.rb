@@ -226,8 +226,8 @@ class Crawler
       end
 
       # パス "#" の対策
-      if l == "#"
-        puts("INFO: SKIP    - PATH #")
+      if l == "#" || l[0] == "#"
+        puts("INFO: SKIP    - PATH: #{l}")
         next
       end
 
