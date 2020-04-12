@@ -141,29 +141,6 @@ class Crawler
           # background-image:url("---" の中身が取得できる
           background_image_url = background_image[22..-2]
 
-
-          # # ディレクトリ作成
-          # mkdir_name = ""
-          # mkdir_name = loop_mkdir(mkdir_name, background_image_url)
-          # # NOTE: CSS のクローラーのためディレクトリ作成コマンドの呼び出しは行われない
-          # # ディレクトリの作成( 階層なし )
-          # if mkdir_name.empty?
-          #   #
-          # elsif (/.css/ =~ background_image_url)
-          #   # ディレクトリが生成されないように
-          # elsif (/.js/ =~ background_image_url)
-          #   # ディレクトリが生成されないように
-          # elsif (/.png/ =~ background_image_url)
-          #   # ディレクトリが生成されないように
-          # elsif (/.jpg/ =~ background_image_url)
-          #   # ディレクトリが生成されないように
-          # elsif (/.jpeg/ =~ background_image_url)
-          #   # ディレクトリが生成されないように
-          # else
-          #   Dir.mkdir(mkdir_name)
-          #   puts("INFO: CREATED - DIR - #{mkdir_name}")
-          # end
-
           # ディレクトリ作成
           if (/.css/ =~ background_image_url) ||
              (/.js/ =~ background_image_url) ||
