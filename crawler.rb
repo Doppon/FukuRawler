@@ -93,7 +93,7 @@ class Crawler
           # background-image:url("---" の中身が取得できる
           background_image_url = background_image[22..-2]
 
-          # もし svg だった場合読み込みの必要がないのでスキップ
+          # もしエンコードした XML として svg が埋め込まれている場合
           if /svg\+xml/ =~ background_image_url
             next
           end
