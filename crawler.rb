@@ -139,6 +139,7 @@ class Crawler
           # ディレクトリ作成
           mkdir_name = ""
           mkdir_name = loop_mkdir(mkdir_name, background_image_url)
+          # NOTE: CSS のクローラーのためディレクトリ作成コマンドの呼び出しは行われない
           # ディレクトリの作成( 階層なし )
           if mkdir_name.empty?
             #
