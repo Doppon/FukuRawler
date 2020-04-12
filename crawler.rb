@@ -174,11 +174,21 @@ class Crawler
         # ディレクトリ作成
         if (/.css/ =~ l) || (/.js/ =~ l)
           dir_name = File.dirname(l) # 最後の拡張子が含まれるファイルを除外
-          FileUtils.mkdir_p(".#{dir_name}")
-          puts("INFO: CREATED - DIR - .#{dir_name}")
+          is_dir_exist = Dir.exist?(dir_name)
+          if !is_dir_exist
+            FileUtils.mkdir_p(".#{dir_name}")
+            puts("INFO: CREATED - DIR - .#{dir_name}")
+          else
+            puts("INFO: SKIP    - DIR - .#{dir_name}")
+          end
         else
-          FileUtils.mkdir_p(".#{l}")
-          puts("INFO: CREATED - DIR - .#{l}")
+          is_dir_exist = Dir.exist?(l)
+          if !is_dir_exist
+            FileUtils.mkdir_p(".#{l}")
+            puts("INFO: CREATED - DIR - .#{l}")
+          else
+            puts("INFO: SKIP    - DIR - .#{l}")
+          end
         end
 
         open(get_apple_domain(url) + l) do |io|
