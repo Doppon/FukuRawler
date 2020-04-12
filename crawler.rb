@@ -94,11 +94,7 @@ class Crawler
           background_image_url = background_image[22..-2]
 
           # ディレクトリ作成
-          if (/.css/ =~ background_image_url) ||
-             (/.js/ =~ background_image_url) ||
-             (/.png/ =~ background_image_url) ||
-             (/.jpg/ =~ background_image_url) ||
-             (/.jpeg/ =~ background_image_url)
+          if (/.css|.js|.png|.jpg|.jpeg/ =~ background_image_url)
             dir_name = File.dirname(background_image_url) # 最後の拡張子が含まれるファイルを除外
             FileUtils.mkdir_p(".#{dir_name}")
             puts("INFO: CREATED - DIR - .#{dir_name}")
