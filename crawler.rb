@@ -89,33 +89,32 @@ class Crawler
       h = {} # 戻り値の空ハッシュを作成
 
       background_images.each do |background_image|
-        # 相対パスの場合
-        #   background_image が ../ や ../../ の場合
-        #     css_file_path
-        #       "./ac/globalnav/5/ja_JP/styles/ac-globalnav.built.css"
-        #
-        #     background_images.first[22..-2]
-        #       "../images/globalnav/apple/image_large.svg"
-        #
-        #     File.dirname(css_file_path)
-        #       "./ac/globalnav/5/ja_JP/styles"
-        #
-        #     File.dirname(css_file_path) + "/" + background_images.first[22..-2]
-        #       "./ac/globalnav/5/ja_JP/styles/../images/globalnav/apple/image_large.svg"
-        #
-        #
-        # 絶対パスの場合
-        #   background_image が /v/home/d/~ などの場合
-        #     css_file_path
-        #       "./ac/globalfooter/5/ja_JP/styles/ac-globalfooter.built.css"
-        #
-        #     background_images.last[22..-2]
-        #       "/ac/flags/1/images/jp/32.png"
-        #
-        #     ".#{background_images.last[22..-2]}"
-        #       "./ac/flags/1/images/jp/32.png"
-
         h[background_image] = Thread.new do
+          # 相対パスの場合
+          #   background_image が ../ や ../../ の場合
+          #     css_file_path
+          #       "./ac/globalnav/5/ja_JP/styles/ac-globalnav.built.css"
+          #
+          #     background_images.first[22..-2]
+          #       "../images/globalnav/apple/image_large.svg"
+          #
+          #     File.dirname(css_file_path)
+          #       "./ac/globalnav/5/ja_JP/styles"
+          #
+          #     File.dirname(css_file_path) + "/" + background_images.first[22..-2]
+          #       "./ac/globalnav/5/ja_JP/styles/../images/globalnav/apple/image_large.svg"
+          #
+          #
+          # 絶対パスの場合
+          #   background_image が /v/home/d/~ などの場合
+          #     css_file_path
+          #       "./ac/globalfooter/5/ja_JP/styles/ac-globalfooter.built.css"
+          #
+          #     background_images.last[22..-2]
+          #       "/ac/flags/1/images/jp/32.png"
+          #
+          #     ".#{background_images.last[22..-2]}"
+          #       "./ac/flags/1/images/jp/32.png"
           background_image_url = background_image[22..-2] # background-image:url("---" の中身が取得できる
 
           # もしエンコードした XML として svg が埋め込まれている場合
