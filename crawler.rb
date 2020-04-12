@@ -89,6 +89,19 @@ class Crawler
       h = {} # 戻り値の空ハッシュを作成
 
       background_images.each do |background_image|
+
+        # css_file_path:
+        #   "./ac/globalnav/5/ja_JP/styles/ac-globalnav.built.css"
+        # 
+        # background_images.first[22..-2]
+        #   "../images/globalnav/apple/image_large.svg"
+        #
+        # File.dirname(css_file_path)
+        #   "./ac/globalnav/5/ja_JP/styles"
+        #
+        # File.dirname(css_file_path) + "/" + background_images.first[22..-2]
+        # 
+
         h[background_image] = Thread.new do
           background_image_url = background_image[22..-2] # background-image:url("---" の中身が取得できる
 
