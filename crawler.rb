@@ -93,8 +93,13 @@ class Crawler
           # background-image:url("---" の中身が取得できる
           background_image_url = background_image[22..-2]
 
+          # もし svg だった場合読み込みの必要がないのでスキップ
+          if /svg\+xml/ =~ background_image_url
+            next
+          end
+
           # ディレクトリ作成
-          if (/.css|.js|.png|.jpg|.jpeg|.svg/ =~ background_image_url)
+          if (/.css|.js|.png|.jpg|.jpeg/ =~ background_image_url)
             dir_name = File.dirname(background_image_url) # 最後の拡張子が含まれるファイルを除外
             is_dir_exist = Dir.exist?(dir_name)
             if !is_dir_exist
