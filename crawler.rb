@@ -94,7 +94,7 @@ class Crawler
           background_image_url = background_image[22..-2]
 
           # ディレクトリ作成
-          if (/.css|.js|.png|.jpg|.jpeg/ =~ background_image_url)
+          if (/.css|.js|.png|.jpg|.jpeg|.svg/ =~ background_image_url)
             dir_name = File.dirname(background_image_url) # 最後の拡張子が含まれるファイルを除外
             is_dir_exist = Dir.exist?(dir_name)
             if !is_dir_exist
