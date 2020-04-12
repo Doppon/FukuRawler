@@ -22,7 +22,7 @@ class Crawler
     end
 
     is_html_exist = File.exist?("./#{base}/#{html_file_name}")
-    if !is_html_exist    
+    if !is_html_exist
       # /jp/index.html の作成
       open("./#{base}/#{html_file_name}", "wb") do |html|
         open(url) do |io|
