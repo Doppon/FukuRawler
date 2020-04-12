@@ -4,6 +4,9 @@ puts("INFO: DELETED ac/")
 system("rm -rf jp/")
 puts("INFO: DELETED jp/")
 
+system("rm -rf jobs/")
+puts("INFO: DELETED jobs/")
+
 system("rm -rf choose-country-region/")
 puts("INFO: DELETED choose-country-region/")
 
